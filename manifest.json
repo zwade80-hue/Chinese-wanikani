@@ -1,1 +1,16 @@
-
+{
+  "name": "汉字 Hanzi SRS",
+  "short_name": "Hanzi SRS",
+  "description": "Spaced repetition for Chinese characters",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0608",
+  "theme_color": "#c0392b",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
