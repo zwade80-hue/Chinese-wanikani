@@ -1,83 +1,2232 @@
 [
-  {"id":1,"type":"character","hanzi":"一","pinyin":"yī","tone":1,"english":"one","meaning":"The number one. One of the most basic and ancient characters — a single horizontal stroke.","example_zh":"一个人","example_en":"yī gè rén — one person","etymology":"Pictographic"},
-  {"id":2,"type":"character","hanzi":"二","pinyin":"èr","tone":4,"english":"two","meaning":"The number two. Two horizontal strokes representing two units.","example_zh":"二月","example_en":"èr yuè — February","etymology":"Pictographic"},
-  {"id":3,"type":"character","hanzi":"三","pinyin":"sān","tone":1,"english":"three","meaning":"The number three. Three horizontal strokes.","example_zh":"三天","example_en":"sān tiān — three days","etymology":"Pictographic"},
-  {"id":4,"type":"character","hanzi":"人","pinyin":"rén","tone":2,"english":"person","meaning":"A person. The character looks like a walking figure with two legs spread apart.","example_zh":"中国人","example_en":"Zhōngguó rén — Chinese person","etymology":"Pictographic"},
-  {"id":5,"type":"character","hanzi":"口","pinyin":"kǒu","tone":3,"english":"mouth","meaning":"Mouth, opening. A square representing an open mouth. Used as a counter for people.","example_zh":"开口","example_en":"kāi kǒu — open one's mouth","etymology":"Pictographic"},
-  {"id":6,"type":"character","hanzi":"大","pinyin":"dà","tone":4,"english":"big","meaning":"Big, large, great. A person with arms outstretched wide — showing size.","example_zh":"很大","example_en":"hěn dà — very big","etymology":"Pictographic"},
-  {"id":7,"type":"character","hanzi":"小","pinyin":"xiǎo","tone":3,"english":"small","meaning":"Small, little. Three strokes showing something tiny. Opposite of 大.","example_zh":"小心","example_en":"xiǎo xīn — be careful","etymology":"Pictographic"},
-  {"id":8,"type":"character","hanzi":"中","pinyin":"zhōng","tone":1,"english":"middle","meaning":"Middle, center. A line through the center of a box — hitting the middle.","example_zh":"中间","example_en":"zhōngjiān — in the middle","etymology":"Pictographic"},
-  {"id":9,"type":"character","hanzi":"国","pinyin":"guó","tone":2,"english":"country","meaning":"Country, nation. A jewel inside a border — something precious enclosed by boundaries.","example_zh":"国家","example_en":"guójiā — country, nation","etymology":"Compound"},
-  {"id":10,"type":"character","hanzi":"日","pinyin":"rì","tone":4,"english":"sun / day","meaning":"Sun or day. Originally a circle with a dot for the sun. Now square with a middle line.","example_zh":"每日","example_en":"měi rì — every day","etymology":"Pictographic"},
-  {"id":11,"type":"character","hanzi":"月","pinyin":"yuè","tone":4,"english":"moon / month","meaning":"Moon or month. A crescent moon shape. Also used for months of the year.","example_zh":"月亮","example_en":"yuèliang — the moon","etymology":"Pictographic"},
-  {"id":12,"type":"character","hanzi":"山","pinyin":"shān","tone":1,"english":"mountain","meaning":"Mountain. Three peaks rising — the middle one tallest. Very recognizable pictograph.","example_zh":"高山","example_en":"gāo shān — high mountain","etymology":"Pictographic"},
-  {"id":13,"type":"character","hanzi":"水","pinyin":"shuǐ","tone":3,"english":"water","meaning":"Water. Looks like flowing water with a central stream and side ripples.","example_zh":"喝水","example_en":"hē shuǐ — drink water","etymology":"Pictographic"},
-  {"id":14,"type":"character","hanzi":"火","pinyin":"huǒ","tone":3,"english":"fire","meaning":"Fire. Resembles flames rising upward from a base. A very old pictograph.","example_zh":"大火","example_en":"dà huǒ — big fire","etymology":"Pictographic"},
-  {"id":15,"type":"character","hanzi":"木","pinyin":"mù","tone":4,"english":"wood / tree","meaning":"Wood, tree. A cross shape with roots going down and branches going up.","example_zh":"木头","example_en":"mùtou — wood, timber","etymology":"Pictographic"},
-  {"id":16,"type":"character","hanzi":"天","pinyin":"tiān","tone":1,"english":"sky / day","meaning":"Sky, heaven, day. A line above 大 (big person) — the sky above everything.","example_zh":"今天","example_en":"jīntiān — today","etymology":"Ideographic"},
-  {"id":17,"type":"character","hanzi":"地","pinyin":"dì","tone":4,"english":"ground / earth","meaning":"Ground, earth, place. Also an adverbial particle (de) in spoken Chinese.","example_zh":"土地","example_en":"tǔdì — land, soil","etymology":"Compound"},
-  {"id":18,"type":"character","hanzi":"上","pinyin":"shàng","tone":4,"english":"up / above","meaning":"Up, above, on top. A short line above a longer line — above.","example_zh":"上面","example_en":"shàngmiàn — above, on top","etymology":"Ideographic"},
-  {"id":19,"type":"character","hanzi":"下","pinyin":"xià","tone":4,"english":"down / below","meaning":"Down, below, under. A short line below a longer line — below.","example_zh":"下面","example_en":"xiàmiàn — below, underneath","etymology":"Ideographic"},
-  {"id":20,"type":"character","hanzi":"我","pinyin":"wǒ","tone":3,"english":"I / me","meaning":"I, me. First person singular pronoun. Contains the radical for hand holding a weapon.","example_zh":"我是学生","example_en":"wǒ shì xuéshēng — I am a student","etymology":"Compound"},
-  {"id":21,"type":"character","hanzi":"你","pinyin":"nǐ","tone":3,"english":"you","meaning":"You (singular, informal). Second person pronoun used in everyday speech.","example_zh":"你好","example_en":"nǐ hǎo — hello","etymology":"Compound"},
-  {"id":22,"type":"character","hanzi":"他","pinyin":"tā","tone":1,"english":"he / him","meaning":"He, him. Third person masculine pronoun. Sounds identical to 她 (she) and 它 (it).","example_zh":"他是我朋友","example_en":"tā shì wǒ péngyou — he is my friend","etymology":"Compound"},
-  {"id":23,"type":"character","hanzi":"是","pinyin":"shì","tone":4,"english":"to be","meaning":"To be (is, am, are). The main linking verb. Negated as 不是 (bú shì — is not).","example_zh":"我是老师","example_en":"wǒ shì lǎoshī — I am a teacher","etymology":"Ideographic"},
-  {"id":24,"type":"character","hanzi":"有","pinyin":"yǒu","tone":3,"english":"to have","meaning":"To have; there is/are. Negated as 没有 (méiyǒu). One of the most used verbs.","example_zh":"我有问题","example_en":"wǒ yǒu wèntí — I have a question","etymology":"Compound"},
-  {"id":25,"type":"character","hanzi":"不","pinyin":"bù","tone":4,"english":"not / no","meaning":"Negation: not, no. Changes to 2nd tone (bú) before another 4th-tone syllable.","example_zh":"我不知道","example_en":"wǒ bù zhīdào — I don't know","etymology":"Pictographic"},
-  {"id":26,"type":"character","hanzi":"好","pinyin":"hǎo","tone":3,"english":"good","meaning":"Good, well, fine. A woman 女 next to a child 子 — a good family scene.","example_zh":"很好","example_en":"hěn hǎo — very good","etymology":"Compound"},
-  {"id":27,"type":"character","hanzi":"来","pinyin":"lái","tone":2,"english":"to come","meaning":"To come, to arrive. Opposite of 去 (qù, to go).","example_zh":"他来了","example_en":"tā lái le — he has come","etymology":"Pictographic"},
-  {"id":28,"type":"character","hanzi":"去","pinyin":"qù","tone":4,"english":"to go","meaning":"To go, to leave for. Opposite of 来 (lái, to come).","example_zh":"我去学校","example_en":"wǒ qù xuéxiào — I go to school","etymology":"Compound"},
-  {"id":29,"type":"character","hanzi":"说","pinyin":"shuō","tone":1,"english":"to speak","meaning":"To speak, say, tell. The speech radical 讠on the left shows it relates to language.","example_zh":"他说中文","example_en":"tā shuō Zhōngwén — he speaks Chinese","etymology":"Compound"},
-  {"id":30,"type":"character","hanzi":"看","pinyin":"kàn","tone":4,"english":"to look / to watch","meaning":"To look at, watch, read. A hand 手 above an eye 目 — shielding eyes to look far.","example_zh":"我看书","example_en":"wǒ kàn shū — I read books","etymology":"Compound"},
-  {"id":31,"type":"character","hanzi":"吃","pinyin":"chī","tone":1,"english":"to eat","meaning":"To eat. The mouth radical 口 on the left. 吃饭 (eat rice) means to eat a meal.","example_zh":"我吃早饭","example_en":"wǒ chī zǎofàn — I eat breakfast","etymology":"Compound"},
-  {"id":32,"type":"character","hanzi":"喝","pinyin":"hē","tone":1,"english":"to drink","meaning":"To drink. Mouth radical 口 on the left. 喝水 = drink water; 喝茶 = drink tea.","example_zh":"我喝茶","example_en":"wǒ hē chá — I drink tea","etymology":"Compound"},
-  {"id":33,"type":"character","hanzi":"学","pinyin":"xué","tone":2,"english":"to study","meaning":"To study, learn. 学生 = student; 学校 = school. A very common character.","example_zh":"我学中文","example_en":"wǒ xué Zhōngwén — I study Chinese","etymology":"Compound"},
-  {"id":34,"type":"character","hanzi":"年","pinyin":"nián","tone":2,"english":"year","meaning":"Year. Used for counting years. 今年 = this year; 新年 = new year.","example_zh":"今年","example_en":"jīnnián — this year","etymology":"Compound"},
-  {"id":35,"type":"character","hanzi":"多","pinyin":"duō","tone":1,"english":"many / much","meaning":"Many, much, more. 多少 (duōshao) = how much/many? Very common in questions.","example_zh":"很多人","example_en":"hěn duō rén — many people","etymology":"Compound"},
-  {"id":36,"type":"character","hanzi":"少","pinyin":"shǎo","tone":3,"english":"few / little","meaning":"Few, little, less. Opposite of 多 (duō). Also pronounced shào meaning young.","example_zh":"少一点","example_en":"shǎo yīdiǎn — a little less","etymology":"Pictographic"},
-  {"id":37,"type":"character","hanzi":"新","pinyin":"xīn","tone":1,"english":"new","meaning":"New. 新年 = New Year; 新闻 = news. Opposite of 旧 (jiù, old/used).","example_zh":"新书","example_en":"xīn shū — new book","etymology":"Compound"},
-  {"id":38,"type":"character","hanzi":"老","pinyin":"lǎo","tone":3,"english":"old","meaning":"Old, aged. 老师 (teacher) = 'old master'. 老朋友 = old friend.","example_zh":"老朋友","example_en":"lǎo péngyou — old friend","etymology":"Pictographic"},
-  {"id":39,"type":"character","hanzi":"高","pinyin":"gāo","tone":1,"english":"tall / high","meaning":"Tall, high. 高兴 (gāoxìng) = happy (lit. high spirits). 高中 = high school.","example_zh":"很高","example_en":"hěn gāo — very tall","etymology":"Pictographic"},
-  {"id":40,"type":"character","hanzi":"家","pinyin":"jiā","tone":1,"english":"home / family","meaning":"Home, family, house. A pig 豕 under a roof — a household. 回家 = go home.","example_zh":"我回家了","example_en":"wǒ huí jiā le — I'm going home","etymology":"Pictographic"},
-
-  {"id":101,"type":"vocab","hanzi":"中国","pinyin":"Zhōngguó","tone":1,"english":"China","meaning":"China — the Middle Kingdom. 中 (middle) + 国 (country). The most important place name to know.","example_zh":"我在中国学中文","example_en":"wǒ zài Zhōngguó xué Zhōngwén — I study Chinese in China","etymology":"Compound","components":[8,9]},
-  {"id":102,"type":"vocab","hanzi":"中文","pinyin":"Zhōngwén","tone":1,"english":"Chinese language","meaning":"The Chinese language (written). 中 (China/middle) + 文 (language/writing).","example_zh":"你会说中文吗？","example_en":"nǐ huì shuō Zhōngwén ma? — can you speak Chinese?","etymology":"Compound","components":[8]},
-  {"id":103,"type":"vocab","hanzi":"日本","pinyin":"Rìběn","tone":4,"english":"Japan","meaning":"Japan — origin of the sun. 日 (sun) + 本 (origin/root). A great mnemonic.","example_zh":"日本很漂亮","example_en":"Rìběn hěn piàoliang — Japan is very beautiful","etymology":"Compound","components":[10]},
-  {"id":104,"type":"vocab","hanzi":"日文","pinyin":"Rìwén","tone":4,"english":"Japanese language","meaning":"The Japanese language. 日 (Japan) + 文 (language/writing).","example_zh":"我学日文","example_en":"wǒ xué Rìwén — I study Japanese","etymology":"Compound","components":[10]},
-  {"id":105,"type":"vocab","hanzi":"人口","pinyin":"rénkǒu","tone":2,"english":"population","meaning":"Population. 人 (person) + 口 (mouth) — the number of mouths to feed. Very logical!","example_zh":"中国人口很多","example_en":"Zhōngguó rénkǒu hěn duō — China has a large population","etymology":"Compound","components":[4,5]},
-  {"id":106,"type":"vocab","hanzi":"大人","pinyin":"dàrén","tone":4,"english":"adult","meaning":"Adult, grown-up. 大 (big) + 人 (person) — a big person. Also means 'Your Excellency' formally.","example_zh":"他已经是大人了","example_en":"tā yǐjīng shì dàrén le — he is already an adult","etymology":"Compound","components":[6,4]},
-  {"id":107,"type":"vocab","hanzi":"小人","pinyin":"xiǎorén","tone":3,"english":"petty person / villain","meaning":"A petty, mean-spirited person or villain. 小 (small) + 人 (person). Used in 君子和小人 (noble vs petty).","example_zh":"他是个小人","example_en":"tā shì gè xiǎorén — he is a petty person","etymology":"Compound","components":[7,4]},
-  {"id":108,"type":"vocab","hanzi":"大山","pinyin":"dàshān","tone":4,"english":"great mountain","meaning":"A great or tall mountain. 大 (big) + 山 (mountain). Also a famous foreigner's Chinese name.","example_zh":"大山很高","example_en":"dàshān hěn gāo — the great mountain is very tall","etymology":"Compound","components":[6,12]},
-  {"id":109,"type":"vocab","hanzi":"山水","pinyin":"shānshuǐ","tone":1,"english":"landscape / scenery","meaning":"Landscape, scenery. 山 (mountain) + 水 (water) — the classic Chinese artistic subject.","example_zh":"中国山水很美","example_en":"Zhōngguó shānshuǐ hěn měi — Chinese landscapes are beautiful","etymology":"Compound","components":[12,13]},
-  {"id":110,"type":"vocab","hanzi":"水火","pinyin":"shuǐhuǒ","tone":3,"english":"water and fire / irreconcilable","meaning":"Water and fire — irreconcilable opposites. Used in 水火不容 (incompatible like water and fire).","example_zh":"他们水火不容","example_en":"tāmen shuǐhuǒ bùróng — they are like water and fire","etymology":"Compound","components":[13,14]},
-  {"id":111,"type":"vocab","hanzi":"上山","pinyin":"shàng shān","tone":4,"english":"to climb a mountain","meaning":"To go up a mountain, to climb. 上 (up/go up) + 山 (mountain). Directional verb phrase.","example_zh":"我们去上山","example_en":"wǒmen qù shàng shān — we're going to climb the mountain","etymology":"Compound","components":[18,12]},
-  {"id":112,"type":"vocab","hanzi":"下山","pinyin":"xià shān","tone":4,"english":"to descend a mountain","meaning":"To come down from a mountain. 下 (down) + 山 (mountain). Opposite of 上山.","example_zh":"我们下山了","example_en":"wǒmen xià shān le — we came down the mountain","etymology":"Compound","components":[19,12]},
-  {"id":113,"type":"vocab","hanzi":"今天","pinyin":"jīntiān","tone":1,"english":"today","meaning":"Today. 今 (now/present) + 天 (day/sky). One of the first time words you'll learn.","example_zh":"今天天气很好","example_en":"jīntiān tiānqì hěn hǎo — the weather is great today","etymology":"Compound","components":[16]},
-  {"id":114,"type":"vocab","hanzi":"天天","pinyin":"tiāntiān","tone":1,"english":"every day","meaning":"Every day. Repeating 天 (day) creates 'every day' — a common Chinese pattern.","example_zh":"我天天学中文","example_en":"wǒ tiāntiān xué Zhōngwén — I study Chinese every day","etymology":"Compound","components":[16]},
-  {"id":115,"type":"vocab","hanzi":"大学","pinyin":"dàxué","tone":4,"english":"university","meaning":"University, college. 大 (big/great) + 学 (study) — a place of great learning.","example_zh":"我在大学学习","example_en":"wǒ zài dàxué xuéxí — I study at university","etymology":"Compound","components":[6,33]},
-  {"id":116,"type":"vocab","hanzi":"学生","pinyin":"xuéshēng","tone":2,"english":"student","meaning":"Student. 学 (study) + 生 (life/born) — one born to study. Extremely common word.","example_zh":"我是学生","example_en":"wǒ shì xuéshēng — I am a student","etymology":"Compound","components":[33]},
-  {"id":117,"type":"vocab","hanzi":"好人","pinyin":"hǎorén","tone":3,"english":"good person","meaning":"A good person, kind person. 好 (good) + 人 (person). Also used sarcastically sometimes.","example_zh":"他是个好人","example_en":"tā shì gè hǎorén — he is a good person","etymology":"Compound","components":[26,4]},
-  {"id":118,"type":"vocab","hanzi":"你好","pinyin":"nǐ hǎo","tone":3,"english":"hello","meaning":"Hello! Literally 'you good'. The standard greeting in Mandarin Chinese.","example_zh":"你好，我叫小明","example_en":"nǐ hǎo, wǒ jiào Xiǎomíng — hello, my name is Xiaoming","etymology":"Compound","components":[21,26]},
-  {"id":119,"type":"vocab","hanzi":"不好","pinyin":"bù hǎo","tone":4,"english":"not good / bad","meaning":"Not good, bad. 不 (not) + 好 (good). Simple negation. Very common in daily speech.","example_zh":"这个不好","example_en":"zhège bù hǎo — this is not good","etymology":"Compound","components":[25,26]},
-  {"id":120,"type":"vocab","hanzi":"不是","pinyin":"bú shì","tone":2,"english":"is not / no","meaning":"Is not, am not, are not. 不 (not) + 是 (to be). The negation of 是. Note the tone change on 不.","example_zh":"我不是老师","example_en":"wǒ bú shì lǎoshī — I am not a teacher","etymology":"Compound","components":[25,23]},
-  {"id":121,"type":"vocab","hanzi":"多少","pinyin":"duōshao","tone":1,"english":"how many / how much","meaning":"How many, how much. 多 (many) + 少 (few) — between many and few, i.e. what number? Essential question word.","example_zh":"多少钱？","example_en":"duōshao qián? — how much (money)?","etymology":"Compound","components":[35,36]},
-  {"id":122,"type":"vocab","hanzi":"大家","pinyin":"dàjiā","tone":4,"english":"everyone","meaning":"Everyone, everybody. 大 (big/great) + 家 (family/home) — the big family = everyone.","example_zh":"大家好！","example_en":"dàjiā hǎo! — hello everyone!","etymology":"Compound","components":[6,40]},
-  {"id":123,"type":"vocab","hanzi":"国家","pinyin":"guójiā","tone":2,"english":"country / nation","meaning":"Country, nation, state. 国 (country) + 家 (home/family) — the nation as a home. Very common.","example_zh":"我爱我的国家","example_en":"wǒ ài wǒ de guójiā — I love my country","etymology":"Compound","components":[9,40]},
-  {"id":124,"type":"vocab","hanzi":"回家","pinyin":"huí jiā","tone":2,"english":"to go home","meaning":"To go home, return home. 回 (return) + 家 (home). Said constantly in Chinese daily life.","example_zh":"我要回家了","example_en":"wǒ yào huí jiā le — I'm going home now","etymology":"Compound","components":[40]},
-  {"id":125,"type":"vocab","hanzi":"新年","pinyin":"xīnnián","tone":1,"english":"New Year","meaning":"New Year. 新 (new) + 年 (year). 新年快乐 (xīnnián kuàilè) = Happy New Year!","example_zh":"新年快乐！","example_en":"xīnnián kuàilè! — Happy New Year!","etymology":"Compound","components":[37,34]},
-  {"id":126,"type":"vocab","hanzi":"今年","pinyin":"jīnnián","tone":1,"english":"this year","meaning":"This year. 今 (now/present) + 年 (year). Contrast with 去年 (last year) and 明年 (next year).","example_zh":"今年我去中国","example_en":"jīnnián wǒ qù Zhōngguó — this year I'm going to China","etymology":"Compound","components":[34]},
-  {"id":127,"type":"vocab","hanzi":"去年","pinyin":"qùnián","tone":4,"english":"last year","meaning":"Last year. 去 (go/past) + 年 (year). A very common time expression.","example_zh":"去年我在日本","example_en":"qùnián wǒ zài Rìběn — last year I was in Japan","etymology":"Compound","components":[28,34]},
-  {"id":128,"type":"vocab","hanzi":"说话","pinyin":"shuōhuà","tone":1,"english":"to speak / to talk","meaning":"To speak, talk. 说 (say) + 话 (speech/words). The complete verb phrase for speaking.","example_zh":"请慢慢说话","example_en":"qǐng mànmàn shuōhuà — please speak slowly","etymology":"Compound","components":[29]},
-  {"id":129,"type":"vocab","hanzi":"好看","pinyin":"hǎokàn","tone":3,"english":"good-looking / nice to watch","meaning":"Good-looking, attractive, nice to watch. 好 (good) + 看 (look). Works for people and things.","example_zh":"这个电影很好看","example_en":"zhège diànyǐng hěn hǎokàn — this movie is great","etymology":"Compound","components":[26,30]},
-  {"id":130,"type":"vocab","hanzi":"好吃","pinyin":"hǎochī","tone":3,"english":"delicious / tasty","meaning":"Delicious, tasty. 好 (good) + 吃 (eat). One of the most useful words for a foodie!","example_zh":"这个很好吃！","example_en":"zhège hěn hǎochī! — this is delicious!","etymology":"Compound","components":[26,31]},
-  {"id":131,"type":"vocab","hanzi":"好喝","pinyin":"hǎohē","tone":3,"english":"tasty (drinks)","meaning":"Tasty to drink, delicious (for beverages). 好 (good) + 喝 (drink). Parallel to 好吃.","example_zh":"这个茶很好喝","example_en":"zhège chá hěn hǎohē — this tea is delicious","etymology":"Compound","components":[26,32]},
-  {"id":132,"type":"vocab","hanzi":"高山","pinyin":"gāoshān","tone":1,"english":"high mountain","meaning":"A high mountain, tall peak. 高 (tall/high) + 山 (mountain). Often used poetically.","example_zh":"高山流水","example_en":"gāoshān liúshuǐ — high mountains and flowing water (a classic idiom)","etymology":"Compound","components":[39,12]},
-  {"id":133,"type":"vocab","hanzi":"大火","pinyin":"dàhuǒ","tone":4,"english":"big fire / blaze","meaning":"A big fire, blaze, conflagration. 大 (big) + 火 (fire). Also slang for going viral/popular.","example_zh":"发生了大火","example_en":"fāshēng le dàhuǒ — a big fire broke out","etymology":"Compound","components":[6,14]},
-  {"id":134,"type":"vocab","hanzi":"木头","pinyin":"mùtou","tone":4,"english":"wood / blockhead","meaning":"Wood, timber. Also slang for a dull, slow-witted person (a blockhead). 木 (wood) + 头 (head).","example_zh":"这是木头做的","example_en":"zhè shì mùtou zuò de — this is made of wood","etymology":"Compound","components":[15]},
-  {"id":135,"type":"vocab","hanzi":"上来","pinyin":"shànglái","tone":4,"english":"to come up","meaning":"To come up, to come upstairs. 上 (up) + 来 (come). A directional complement.","example_zh":"请上来","example_en":"qǐng shànglái — please come up","etymology":"Compound","components":[18,27]},
-  {"id":136,"type":"vocab","hanzi":"下来","pinyin":"xiàlái","tone":4,"english":"to come down","meaning":"To come down, to get down. 下 (down) + 来 (come). Opposite of 上来.","example_zh":"请下来","example_en":"qǐng xiàlái — please come down","etymology":"Compound","components":[19,27]},
-  {"id":137,"type":"vocab","hanzi":"上去","pinyin":"shàngqù","tone":4,"english":"to go up","meaning":"To go up, to head up. 上 (up) + 去 (go). Similar to 上来 but away from speaker.","example_zh":"他上去了","example_en":"tā shàngqù le — he went up","etymology":"Compound","components":[18,28]},
-  {"id":138,"type":"vocab","hanzi":"下去","pinyin":"xiàqù","tone":4,"english":"to go down / to continue","meaning":"To go down; to continue doing something. 下 (down) + 去 (go). Context determines meaning.","example_zh":"继续下去","example_en":"jìxù xiàqù — continue on, keep going","etymology":"Compound","components":[19,28]},
-  {"id":139,"type":"vocab","hanzi":"多年","pinyin":"duōnián","tone":1,"english":"many years","meaning":"Many years. 多 (many) + 年 (year). 多年来 = for many years, over the years.","example_zh":"多年来他一直努力","example_en":"duōnián lái tā yīzhí nǔlì — he has worked hard for many years","etymology":"Compound","components":[35,34]},
-  {"id":140,"type":"vocab","hanzi":"大国","pinyin":"dàguó","tone":4,"english":"great power / large country","meaning":"A great power, major nation. 大 (big/great) + 国 (country). China, USA, etc. are 大国.","example_zh":"中国是大国","example_en":"Zhōngguó shì dàguó — China is a great power","etymology":"Compound","components":[6,9]}
+  {
+    "id": 1,
+    "type": "character",
+    "hanzi": "一",
+    "pinyin": "yī",
+    "tone": 1,
+    "english": "one",
+    "meaning": "The number one. One of the most basic and ancient characters — a single horizontal stroke.",
+    "example_zh": "一个人",
+    "example_en": "yī gè rén — one person",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 2,
+    "type": "character",
+    "hanzi": "二",
+    "pinyin": "èr",
+    "tone": 4,
+    "english": "two",
+    "meaning": "The number two. Two horizontal strokes representing two units.",
+    "example_zh": "二月",
+    "example_en": "èr yuè — February",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 3,
+    "type": "character",
+    "hanzi": "三",
+    "pinyin": "sān",
+    "tone": 1,
+    "english": "three",
+    "meaning": "The number three. Three horizontal strokes.",
+    "example_zh": "三天",
+    "example_en": "sān tiān — three days",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 4,
+    "type": "character",
+    "hanzi": "人",
+    "pinyin": "rén",
+    "tone": 2,
+    "english": "person",
+    "meaning": "A person. The character looks like a walking figure with two legs spread apart.",
+    "example_zh": "中国人",
+    "example_en": "Zhōngguó rén — Chinese person",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 5,
+    "type": "character",
+    "hanzi": "口",
+    "pinyin": "kǒu",
+    "tone": 3,
+    "english": "mouth",
+    "meaning": "Mouth, opening. A square representing an open mouth. Used as a counter for people.",
+    "example_zh": "开口",
+    "example_en": "kāi kǒu — open one's mouth",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 6,
+    "type": "character",
+    "hanzi": "大",
+    "pinyin": "dà",
+    "tone": 4,
+    "english": "big",
+    "meaning": "Big, large, great. A person with arms outstretched wide — showing size.",
+    "example_zh": "很大",
+    "example_en": "hěn dà — very big",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 7,
+    "type": "character",
+    "hanzi": "小",
+    "pinyin": "xiǎo",
+    "tone": 3,
+    "english": "small",
+    "meaning": "Small, little. Three strokes showing something tiny. Opposite of 大.",
+    "example_zh": "小心",
+    "example_en": "xiǎo xīn — be careful",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 8,
+    "type": "character",
+    "hanzi": "中",
+    "pinyin": "zhōng",
+    "tone": 1,
+    "english": "middle",
+    "meaning": "Middle, center. A line through the center of a box — hitting the middle.",
+    "example_zh": "中间",
+    "example_en": "zhōngjiān — in the middle",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 9,
+    "type": "character",
+    "hanzi": "国",
+    "pinyin": "guó",
+    "tone": 2,
+    "english": "country",
+    "meaning": "Country, nation. A jewel inside a border — something precious enclosed by boundaries.",
+    "example_zh": "国家",
+    "example_en": "guójiā — country, nation",
+    "etymology": "Compound"
+  },
+  {
+    "id": 10,
+    "type": "character",
+    "hanzi": "日",
+    "pinyin": "rì",
+    "tone": 4,
+    "english": "sun / day",
+    "meaning": "Sun or day. Originally a circle with a dot for the sun. Now square with a middle line.",
+    "example_zh": "每日",
+    "example_en": "měi rì — every day",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 11,
+    "type": "character",
+    "hanzi": "月",
+    "pinyin": "yuè",
+    "tone": 4,
+    "english": "moon / month",
+    "meaning": "Moon or month. A crescent moon shape. Also used for months of the year.",
+    "example_zh": "月亮",
+    "example_en": "yuèliang — the moon",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 12,
+    "type": "character",
+    "hanzi": "山",
+    "pinyin": "shān",
+    "tone": 1,
+    "english": "mountain",
+    "meaning": "Mountain. Three peaks rising — the middle one tallest. Very recognizable pictograph.",
+    "example_zh": "高山",
+    "example_en": "gāo shān — high mountain",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 13,
+    "type": "character",
+    "hanzi": "水",
+    "pinyin": "shuǐ",
+    "tone": 3,
+    "english": "water",
+    "meaning": "Water. Looks like flowing water with a central stream and side ripples.",
+    "example_zh": "喝水",
+    "example_en": "hē shuǐ — drink water",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 14,
+    "type": "character",
+    "hanzi": "火",
+    "pinyin": "huǒ",
+    "tone": 3,
+    "english": "fire",
+    "meaning": "Fire. Resembles flames rising upward from a base. A very old pictograph.",
+    "example_zh": "大火",
+    "example_en": "dà huǒ — big fire",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 15,
+    "type": "character",
+    "hanzi": "木",
+    "pinyin": "mù",
+    "tone": 4,
+    "english": "wood / tree",
+    "meaning": "Wood, tree. A cross shape with roots going down and branches going up.",
+    "example_zh": "木头",
+    "example_en": "mùtou — wood, timber",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 16,
+    "type": "character",
+    "hanzi": "天",
+    "pinyin": "tiān",
+    "tone": 1,
+    "english": "sky / day",
+    "meaning": "Sky, heaven, day. A line above 大 (big person) — the sky above everything.",
+    "example_zh": "今天",
+    "example_en": "jīntiān — today",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 17,
+    "type": "character",
+    "hanzi": "地",
+    "pinyin": "dì",
+    "tone": 4,
+    "english": "ground / earth",
+    "meaning": "Ground, earth, place. Also an adverbial particle (de) in spoken Chinese.",
+    "example_zh": "土地",
+    "example_en": "tǔdì — land, soil",
+    "etymology": "Compound"
+  },
+  {
+    "id": 18,
+    "type": "character",
+    "hanzi": "上",
+    "pinyin": "shàng",
+    "tone": 4,
+    "english": "up / above",
+    "meaning": "Up, above, on top. A short line above a longer line — above.",
+    "example_zh": "上面",
+    "example_en": "shàngmiàn — above, on top",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 19,
+    "type": "character",
+    "hanzi": "下",
+    "pinyin": "xià",
+    "tone": 4,
+    "english": "down / below",
+    "meaning": "Down, below, under. A short line below a longer line — below.",
+    "example_zh": "下面",
+    "example_en": "xiàmiàn — below, underneath",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 20,
+    "type": "character",
+    "hanzi": "我",
+    "pinyin": "wǒ",
+    "tone": 3,
+    "english": "I / me",
+    "meaning": "I, me. First person singular pronoun. Contains the radical for hand holding a weapon.",
+    "example_zh": "我是学生",
+    "example_en": "wǒ shì xuéshēng — I am a student",
+    "etymology": "Compound"
+  },
+  {
+    "id": 21,
+    "type": "character",
+    "hanzi": "你",
+    "pinyin": "nǐ",
+    "tone": 3,
+    "english": "you",
+    "meaning": "You (singular, informal). Second person pronoun used in everyday speech.",
+    "example_zh": "你好",
+    "example_en": "nǐ hǎo — hello",
+    "etymology": "Compound"
+  },
+  {
+    "id": 22,
+    "type": "character",
+    "hanzi": "他",
+    "pinyin": "tā",
+    "tone": 1,
+    "english": "he / him",
+    "meaning": "He, him. Third person masculine pronoun. Sounds identical to 她 (she) and 它 (it).",
+    "example_zh": "他是我朋友",
+    "example_en": "tā shì wǒ péngyou — he is my friend",
+    "etymology": "Compound"
+  },
+  {
+    "id": 23,
+    "type": "character",
+    "hanzi": "是",
+    "pinyin": "shì",
+    "tone": 4,
+    "english": "to be",
+    "meaning": "To be (is, am, are). The main linking verb. Negated as 不是 (bú shì — is not).",
+    "example_zh": "我是老师",
+    "example_en": "wǒ shì lǎoshī — I am a teacher",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 24,
+    "type": "character",
+    "hanzi": "有",
+    "pinyin": "yǒu",
+    "tone": 3,
+    "english": "to have",
+    "meaning": "To have; there is/are. Negated as 没有 (méiyǒu). One of the most used verbs.",
+    "example_zh": "我有问题",
+    "example_en": "wǒ yǒu wèntí — I have a question",
+    "etymology": "Compound"
+  },
+  {
+    "id": 25,
+    "type": "character",
+    "hanzi": "不",
+    "pinyin": "bù",
+    "tone": 4,
+    "english": "not / no",
+    "meaning": "Negation: not, no. Changes to 2nd tone (bú) before another 4th-tone syllable.",
+    "example_zh": "我不知道",
+    "example_en": "wǒ bù zhīdào — I don't know",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 26,
+    "type": "character",
+    "hanzi": "好",
+    "pinyin": "hǎo",
+    "tone": 3,
+    "english": "good",
+    "meaning": "Good, well, fine. A woman 女 next to a child 子 — a good family scene.",
+    "example_zh": "很好",
+    "example_en": "hěn hǎo — very good",
+    "etymology": "Compound"
+  },
+  {
+    "id": 27,
+    "type": "character",
+    "hanzi": "来",
+    "pinyin": "lái",
+    "tone": 2,
+    "english": "to come",
+    "meaning": "To come, to arrive. Opposite of 去 (qù, to go).",
+    "example_zh": "他来了",
+    "example_en": "tā lái le — he has come",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 28,
+    "type": "character",
+    "hanzi": "去",
+    "pinyin": "qù",
+    "tone": 4,
+    "english": "to go",
+    "meaning": "To go, to leave for. Opposite of 来 (lái, to come).",
+    "example_zh": "我去学校",
+    "example_en": "wǒ qù xuéxiào — I go to school",
+    "etymology": "Compound"
+  },
+  {
+    "id": 29,
+    "type": "character",
+    "hanzi": "说",
+    "pinyin": "shuō",
+    "tone": 1,
+    "english": "to speak",
+    "meaning": "To speak, say, tell. The speech radical 讠on the left shows it relates to language.",
+    "example_zh": "他说中文",
+    "example_en": "tā shuō Zhōngwén — he speaks Chinese",
+    "etymology": "Compound"
+  },
+  {
+    "id": 30,
+    "type": "character",
+    "hanzi": "看",
+    "pinyin": "kàn",
+    "tone": 4,
+    "english": "to look / to watch",
+    "meaning": "To look at, watch, read. A hand 手 above an eye 目 — shielding eyes to look far.",
+    "example_zh": "我看书",
+    "example_en": "wǒ kàn shū — I read books",
+    "etymology": "Compound"
+  },
+  {
+    "id": 31,
+    "type": "character",
+    "hanzi": "吃",
+    "pinyin": "chī",
+    "tone": 1,
+    "english": "to eat",
+    "meaning": "To eat. The mouth radical 口 on the left. 吃饭 (eat rice) means to eat a meal.",
+    "example_zh": "我吃早饭",
+    "example_en": "wǒ chī zǎofàn — I eat breakfast",
+    "etymology": "Compound"
+  },
+  {
+    "id": 32,
+    "type": "character",
+    "hanzi": "喝",
+    "pinyin": "hē",
+    "tone": 1,
+    "english": "to drink",
+    "meaning": "To drink. Mouth radical 口 on the left. 喝水 = drink water; 喝茶 = drink tea.",
+    "example_zh": "我喝茶",
+    "example_en": "wǒ hē chá — I drink tea",
+    "etymology": "Compound"
+  },
+  {
+    "id": 33,
+    "type": "character",
+    "hanzi": "学",
+    "pinyin": "xué",
+    "tone": 2,
+    "english": "to study",
+    "meaning": "To study, learn. 学生 = student; 学校 = school. A very common character.",
+    "example_zh": "我学中文",
+    "example_en": "wǒ xué Zhōngwén — I study Chinese",
+    "etymology": "Compound"
+  },
+  {
+    "id": 34,
+    "type": "character",
+    "hanzi": "年",
+    "pinyin": "nián",
+    "tone": 2,
+    "english": "year",
+    "meaning": "Year. Used for counting years. 今年 = this year; 新年 = new year.",
+    "example_zh": "今年",
+    "example_en": "jīnnián — this year",
+    "etymology": "Compound"
+  },
+  {
+    "id": 35,
+    "type": "character",
+    "hanzi": "多",
+    "pinyin": "duō",
+    "tone": 1,
+    "english": "many / much",
+    "meaning": "Many, much, more. 多少 (duōshao) = how much/many? Very common in questions.",
+    "example_zh": "很多人",
+    "example_en": "hěn duō rén — many people",
+    "etymology": "Compound"
+  },
+  {
+    "id": 36,
+    "type": "character",
+    "hanzi": "少",
+    "pinyin": "shǎo",
+    "tone": 3,
+    "english": "few / little",
+    "meaning": "Few, little, less. Opposite of 多 (duō). Also pronounced shào meaning young.",
+    "example_zh": "少一点",
+    "example_en": "shǎo yīdiǎn — a little less",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 37,
+    "type": "character",
+    "hanzi": "新",
+    "pinyin": "xīn",
+    "tone": 1,
+    "english": "new",
+    "meaning": "New. 新年 = New Year; 新闻 = news. Opposite of 旧 (jiù, old/used).",
+    "example_zh": "新书",
+    "example_en": "xīn shū — new book",
+    "etymology": "Compound"
+  },
+  {
+    "id": 38,
+    "type": "character",
+    "hanzi": "老",
+    "pinyin": "lǎo",
+    "tone": 3,
+    "english": "old",
+    "meaning": "Old, aged. 老师 (teacher) = 'old master'. 老朋友 = old friend.",
+    "example_zh": "老朋友",
+    "example_en": "lǎo péngyou — old friend",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 39,
+    "type": "character",
+    "hanzi": "高",
+    "pinyin": "gāo",
+    "tone": 1,
+    "english": "tall / high",
+    "meaning": "Tall, high. 高兴 (gāoxìng) = happy (lit. high spirits). 高中 = high school.",
+    "example_zh": "很高",
+    "example_en": "hěn gāo — very tall",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 40,
+    "type": "character",
+    "hanzi": "家",
+    "pinyin": "jiā",
+    "tone": 1,
+    "english": "home / family",
+    "meaning": "Home, family, house. A pig 豕 under a roof — a household. 回家 = go home.",
+    "example_zh": "我回家了",
+    "example_en": "wǒ huí jiā le — I'm going home",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 101,
+    "type": "vocab",
+    "hanzi": "中国",
+    "pinyin": "Zhōngguó",
+    "tone": 1,
+    "english": "China",
+    "meaning": "China — the Middle Kingdom. 中 (middle) + 国 (country). The most important place name to know.",
+    "example_zh": "我在中国学中文",
+    "example_en": "wǒ zài Zhōngguó xué Zhōngwén — I study Chinese in China",
+    "etymology": "Compound",
+    "components": [
+      8,
+      9
+    ]
+  },
+  {
+    "id": 102,
+    "type": "vocab",
+    "hanzi": "中文",
+    "pinyin": "Zhōngwén",
+    "tone": 1,
+    "english": "Chinese language",
+    "meaning": "The Chinese language (written). 中 (China/middle) + 文 (language/writing).",
+    "example_zh": "你会说中文吗？",
+    "example_en": "nǐ huì shuō Zhōngwén ma? — can you speak Chinese?",
+    "etymology": "Compound",
+    "components": [
+      8
+    ]
+  },
+  {
+    "id": 103,
+    "type": "vocab",
+    "hanzi": "日本",
+    "pinyin": "Rìběn",
+    "tone": 4,
+    "english": "Japan",
+    "meaning": "Japan — origin of the sun. 日 (sun) + 本 (origin/root). A great mnemonic.",
+    "example_zh": "日本很漂亮",
+    "example_en": "Rìběn hěn piàoliang — Japan is very beautiful",
+    "etymology": "Compound",
+    "components": [
+      10
+    ]
+  },
+  {
+    "id": 104,
+    "type": "vocab",
+    "hanzi": "日文",
+    "pinyin": "Rìwén",
+    "tone": 4,
+    "english": "Japanese language",
+    "meaning": "The Japanese language. 日 (Japan) + 文 (language/writing).",
+    "example_zh": "我学日文",
+    "example_en": "wǒ xué Rìwén — I study Japanese",
+    "etymology": "Compound",
+    "components": [
+      10
+    ]
+  },
+  {
+    "id": 105,
+    "type": "vocab",
+    "hanzi": "人口",
+    "pinyin": "rénkǒu",
+    "tone": 2,
+    "english": "population",
+    "meaning": "Population. 人 (person) + 口 (mouth) — the number of mouths to feed. Very logical!",
+    "example_zh": "中国人口很多",
+    "example_en": "Zhōngguó rénkǒu hěn duō — China has a large population",
+    "etymology": "Compound",
+    "components": [
+      4,
+      5
+    ]
+  },
+  {
+    "id": 106,
+    "type": "vocab",
+    "hanzi": "大人",
+    "pinyin": "dàrén",
+    "tone": 4,
+    "english": "adult",
+    "meaning": "Adult, grown-up. 大 (big) + 人 (person) — a big person. Also means 'Your Excellency' formally.",
+    "example_zh": "他已经是大人了",
+    "example_en": "tā yǐjīng shì dàrén le — he is already an adult",
+    "etymology": "Compound",
+    "components": [
+      6,
+      4
+    ]
+  },
+  {
+    "id": 107,
+    "type": "vocab",
+    "hanzi": "小人",
+    "pinyin": "xiǎorén",
+    "tone": 3,
+    "english": "petty person / villain",
+    "meaning": "A petty, mean-spirited person or villain. 小 (small) + 人 (person). Used in 君子和小人 (noble vs petty).",
+    "example_zh": "他是个小人",
+    "example_en": "tā shì gè xiǎorén — he is a petty person",
+    "etymology": "Compound",
+    "components": [
+      7,
+      4
+    ]
+  },
+  {
+    "id": 108,
+    "type": "vocab",
+    "hanzi": "大山",
+    "pinyin": "dàshān",
+    "tone": 4,
+    "english": "great mountain",
+    "meaning": "A great or tall mountain. 大 (big) + 山 (mountain). Also a famous foreigner's Chinese name.",
+    "example_zh": "大山很高",
+    "example_en": "dàshān hěn gāo — the great mountain is very tall",
+    "etymology": "Compound",
+    "components": [
+      6,
+      12
+    ]
+  },
+  {
+    "id": 109,
+    "type": "vocab",
+    "hanzi": "山水",
+    "pinyin": "shānshuǐ",
+    "tone": 1,
+    "english": "landscape / scenery",
+    "meaning": "Landscape, scenery. 山 (mountain) + 水 (water) — the classic Chinese artistic subject.",
+    "example_zh": "中国山水很美",
+    "example_en": "Zhōngguó shānshuǐ hěn měi — Chinese landscapes are beautiful",
+    "etymology": "Compound",
+    "components": [
+      12,
+      13
+    ]
+  },
+  {
+    "id": 110,
+    "type": "vocab",
+    "hanzi": "水火",
+    "pinyin": "shuǐhuǒ",
+    "tone": 3,
+    "english": "water and fire / irreconcilable",
+    "meaning": "Water and fire — irreconcilable opposites. Used in 水火不容 (incompatible like water and fire).",
+    "example_zh": "他们水火不容",
+    "example_en": "tāmen shuǐhuǒ bùróng — they are like water and fire",
+    "etymology": "Compound",
+    "components": [
+      13,
+      14
+    ]
+  },
+  {
+    "id": 111,
+    "type": "vocab",
+    "hanzi": "上山",
+    "pinyin": "shàng shān",
+    "tone": 4,
+    "english": "to climb a mountain",
+    "meaning": "To go up a mountain, to climb. 上 (up/go up) + 山 (mountain). Directional verb phrase.",
+    "example_zh": "我们去上山",
+    "example_en": "wǒmen qù shàng shān — we're going to climb the mountain",
+    "etymology": "Compound",
+    "components": [
+      18,
+      12
+    ]
+  },
+  {
+    "id": 112,
+    "type": "vocab",
+    "hanzi": "下山",
+    "pinyin": "xià shān",
+    "tone": 4,
+    "english": "to descend a mountain",
+    "meaning": "To come down from a mountain. 下 (down) + 山 (mountain). Opposite of 上山.",
+    "example_zh": "我们下山了",
+    "example_en": "wǒmen xià shān le — we came down the mountain",
+    "etymology": "Compound",
+    "components": [
+      19,
+      12
+    ]
+  },
+  {
+    "id": 113,
+    "type": "vocab",
+    "hanzi": "今天",
+    "pinyin": "jīntiān",
+    "tone": 1,
+    "english": "today",
+    "meaning": "Today. 今 (now/present) + 天 (day/sky). One of the first time words you'll learn.",
+    "example_zh": "今天天气很好",
+    "example_en": "jīntiān tiānqì hěn hǎo — the weather is great today",
+    "etymology": "Compound",
+    "components": [
+      16
+    ]
+  },
+  {
+    "id": 114,
+    "type": "vocab",
+    "hanzi": "天天",
+    "pinyin": "tiāntiān",
+    "tone": 1,
+    "english": "every day",
+    "meaning": "Every day. Repeating 天 (day) creates 'every day' — a common Chinese pattern.",
+    "example_zh": "我天天学中文",
+    "example_en": "wǒ tiāntiān xué Zhōngwén — I study Chinese every day",
+    "etymology": "Compound",
+    "components": [
+      16
+    ]
+  },
+  {
+    "id": 115,
+    "type": "vocab",
+    "hanzi": "大学",
+    "pinyin": "dàxué",
+    "tone": 4,
+    "english": "university",
+    "meaning": "University, college. 大 (big/great) + 学 (study) — a place of great learning.",
+    "example_zh": "我在大学学习",
+    "example_en": "wǒ zài dàxué xuéxí — I study at university",
+    "etymology": "Compound",
+    "components": [
+      6,
+      33
+    ]
+  },
+  {
+    "id": 116,
+    "type": "vocab",
+    "hanzi": "学生",
+    "pinyin": "xuéshēng",
+    "tone": 2,
+    "english": "student",
+    "meaning": "Student. 学 (study) + 生 (life/born) — one born to study. Extremely common word.",
+    "example_zh": "我是学生",
+    "example_en": "wǒ shì xuéshēng — I am a student",
+    "etymology": "Compound",
+    "components": [
+      33
+    ]
+  },
+  {
+    "id": 117,
+    "type": "vocab",
+    "hanzi": "好人",
+    "pinyin": "hǎorén",
+    "tone": 3,
+    "english": "good person",
+    "meaning": "A good person, kind person. 好 (good) + 人 (person). Also used sarcastically sometimes.",
+    "example_zh": "他是个好人",
+    "example_en": "tā shì gè hǎorén — he is a good person",
+    "etymology": "Compound",
+    "components": [
+      26,
+      4
+    ]
+  },
+  {
+    "id": 118,
+    "type": "vocab",
+    "hanzi": "你好",
+    "pinyin": "nǐ hǎo",
+    "tone": 3,
+    "english": "hello",
+    "meaning": "Hello! Literally 'you good'. The standard greeting in Mandarin Chinese.",
+    "example_zh": "你好，我叫小明",
+    "example_en": "nǐ hǎo, wǒ jiào Xiǎomíng — hello, my name is Xiaoming",
+    "etymology": "Compound",
+    "components": [
+      21,
+      26
+    ]
+  },
+  {
+    "id": 119,
+    "type": "vocab",
+    "hanzi": "不好",
+    "pinyin": "bù hǎo",
+    "tone": 4,
+    "english": "not good / bad",
+    "meaning": "Not good, bad. 不 (not) + 好 (good). Simple negation. Very common in daily speech.",
+    "example_zh": "这个不好",
+    "example_en": "zhège bù hǎo — this is not good",
+    "etymology": "Compound",
+    "components": [
+      25,
+      26
+    ]
+  },
+  {
+    "id": 120,
+    "type": "vocab",
+    "hanzi": "不是",
+    "pinyin": "bú shì",
+    "tone": 2,
+    "english": "is not / no",
+    "meaning": "Is not, am not, are not. 不 (not) + 是 (to be). The negation of 是. Note the tone change on 不.",
+    "example_zh": "我不是老师",
+    "example_en": "wǒ bú shì lǎoshī — I am not a teacher",
+    "etymology": "Compound",
+    "components": [
+      25,
+      23
+    ]
+  },
+  {
+    "id": 121,
+    "type": "vocab",
+    "hanzi": "多少",
+    "pinyin": "duōshao",
+    "tone": 1,
+    "english": "how many / how much",
+    "meaning": "How many, how much. 多 (many) + 少 (few) — between many and few, i.e. what number? Essential question word.",
+    "example_zh": "多少钱？",
+    "example_en": "duōshao qián? — how much (money)?",
+    "etymology": "Compound",
+    "components": [
+      35,
+      36
+    ]
+  },
+  {
+    "id": 122,
+    "type": "vocab",
+    "hanzi": "大家",
+    "pinyin": "dàjiā",
+    "tone": 4,
+    "english": "everyone",
+    "meaning": "Everyone, everybody. 大 (big/great) + 家 (family/home) — the big family = everyone.",
+    "example_zh": "大家好！",
+    "example_en": "dàjiā hǎo! — hello everyone!",
+    "etymology": "Compound",
+    "components": [
+      6,
+      40
+    ]
+  },
+  {
+    "id": 123,
+    "type": "vocab",
+    "hanzi": "国家",
+    "pinyin": "guójiā",
+    "tone": 2,
+    "english": "country / nation",
+    "meaning": "Country, nation, state. 国 (country) + 家 (home/family) — the nation as a home. Very common.",
+    "example_zh": "我爱我的国家",
+    "example_en": "wǒ ài wǒ de guójiā — I love my country",
+    "etymology": "Compound",
+    "components": [
+      9,
+      40
+    ]
+  },
+  {
+    "id": 124,
+    "type": "vocab",
+    "hanzi": "回家",
+    "pinyin": "huí jiā",
+    "tone": 2,
+    "english": "to go home",
+    "meaning": "To go home, return home. 回 (return) + 家 (home). Said constantly in Chinese daily life.",
+    "example_zh": "我要回家了",
+    "example_en": "wǒ yào huí jiā le — I'm going home now",
+    "etymology": "Compound",
+    "components": [
+      40
+    ]
+  },
+  {
+    "id": 125,
+    "type": "vocab",
+    "hanzi": "新年",
+    "pinyin": "xīnnián",
+    "tone": 1,
+    "english": "New Year",
+    "meaning": "New Year. 新 (new) + 年 (year). 新年快乐 (xīnnián kuàilè) = Happy New Year!",
+    "example_zh": "新年快乐！",
+    "example_en": "xīnnián kuàilè! — Happy New Year!",
+    "etymology": "Compound",
+    "components": [
+      37,
+      34
+    ]
+  },
+  {
+    "id": 126,
+    "type": "vocab",
+    "hanzi": "今年",
+    "pinyin": "jīnnián",
+    "tone": 1,
+    "english": "this year",
+    "meaning": "This year. 今 (now/present) + 年 (year). Contrast with 去年 (last year) and 明年 (next year).",
+    "example_zh": "今年我去中国",
+    "example_en": "jīnnián wǒ qù Zhōngguó — this year I'm going to China",
+    "etymology": "Compound",
+    "components": [
+      34
+    ]
+  },
+  {
+    "id": 127,
+    "type": "vocab",
+    "hanzi": "去年",
+    "pinyin": "qùnián",
+    "tone": 4,
+    "english": "last year",
+    "meaning": "Last year. 去 (go/past) + 年 (year). A very common time expression.",
+    "example_zh": "去年我在日本",
+    "example_en": "qùnián wǒ zài Rìběn — last year I was in Japan",
+    "etymology": "Compound",
+    "components": [
+      28,
+      34
+    ]
+  },
+  {
+    "id": 128,
+    "type": "vocab",
+    "hanzi": "说话",
+    "pinyin": "shuōhuà",
+    "tone": 1,
+    "english": "to speak / to talk",
+    "meaning": "To speak, talk. 说 (say) + 话 (speech/words). The complete verb phrase for speaking.",
+    "example_zh": "请慢慢说话",
+    "example_en": "qǐng mànmàn shuōhuà — please speak slowly",
+    "etymology": "Compound",
+    "components": [
+      29
+    ]
+  },
+  {
+    "id": 129,
+    "type": "vocab",
+    "hanzi": "好看",
+    "pinyin": "hǎokàn",
+    "tone": 3,
+    "english": "good-looking / nice to watch",
+    "meaning": "Good-looking, attractive, nice to watch. 好 (good) + 看 (look). Works for people and things.",
+    "example_zh": "这个电影很好看",
+    "example_en": "zhège diànyǐng hěn hǎokàn — this movie is great",
+    "etymology": "Compound",
+    "components": [
+      26,
+      30
+    ]
+  },
+  {
+    "id": 130,
+    "type": "vocab",
+    "hanzi": "好吃",
+    "pinyin": "hǎochī",
+    "tone": 3,
+    "english": "delicious / tasty",
+    "meaning": "Delicious, tasty. 好 (good) + 吃 (eat). One of the most useful words for a foodie!",
+    "example_zh": "这个很好吃！",
+    "example_en": "zhège hěn hǎochī! — this is delicious!",
+    "etymology": "Compound",
+    "components": [
+      26,
+      31
+    ]
+  },
+  {
+    "id": 131,
+    "type": "vocab",
+    "hanzi": "好喝",
+    "pinyin": "hǎohē",
+    "tone": 3,
+    "english": "tasty (drinks)",
+    "meaning": "Tasty to drink, delicious (for beverages). 好 (good) + 喝 (drink). Parallel to 好吃.",
+    "example_zh": "这个茶很好喝",
+    "example_en": "zhège chá hěn hǎohē — this tea is delicious",
+    "etymology": "Compound",
+    "components": [
+      26,
+      32
+    ]
+  },
+  {
+    "id": 132,
+    "type": "vocab",
+    "hanzi": "高山",
+    "pinyin": "gāoshān",
+    "tone": 1,
+    "english": "high mountain",
+    "meaning": "A high mountain, tall peak. 高 (tall/high) + 山 (mountain). Often used poetically.",
+    "example_zh": "高山流水",
+    "example_en": "gāoshān liúshuǐ — high mountains and flowing water (a classic idiom)",
+    "etymology": "Compound",
+    "components": [
+      39,
+      12
+    ]
+  },
+  {
+    "id": 133,
+    "type": "vocab",
+    "hanzi": "大火",
+    "pinyin": "dàhuǒ",
+    "tone": 4,
+    "english": "big fire / blaze",
+    "meaning": "A big fire, blaze, conflagration. 大 (big) + 火 (fire). Also slang for going viral/popular.",
+    "example_zh": "发生了大火",
+    "example_en": "fāshēng le dàhuǒ — a big fire broke out",
+    "etymology": "Compound",
+    "components": [
+      6,
+      14
+    ]
+  },
+  {
+    "id": 134,
+    "type": "vocab",
+    "hanzi": "木头",
+    "pinyin": "mùtou",
+    "tone": 4,
+    "english": "wood / blockhead",
+    "meaning": "Wood, timber. Also slang for a dull, slow-witted person (a blockhead). 木 (wood) + 头 (head).",
+    "example_zh": "这是木头做的",
+    "example_en": "zhè shì mùtou zuò de — this is made of wood",
+    "etymology": "Compound",
+    "components": [
+      15
+    ]
+  },
+  {
+    "id": 135,
+    "type": "vocab",
+    "hanzi": "上来",
+    "pinyin": "shànglái",
+    "tone": 4,
+    "english": "to come up",
+    "meaning": "To come up, to come upstairs. 上 (up) + 来 (come). A directional complement.",
+    "example_zh": "请上来",
+    "example_en": "qǐng shànglái — please come up",
+    "etymology": "Compound",
+    "components": [
+      18,
+      27
+    ]
+  },
+  {
+    "id": 136,
+    "type": "vocab",
+    "hanzi": "下来",
+    "pinyin": "xiàlái",
+    "tone": 4,
+    "english": "to come down",
+    "meaning": "To come down, to get down. 下 (down) + 来 (come). Opposite of 上来.",
+    "example_zh": "请下来",
+    "example_en": "qǐng xiàlái — please come down",
+    "etymology": "Compound",
+    "components": [
+      19,
+      27
+    ]
+  },
+  {
+    "id": 137,
+    "type": "vocab",
+    "hanzi": "上去",
+    "pinyin": "shàngqù",
+    "tone": 4,
+    "english": "to go up",
+    "meaning": "To go up, to head up. 上 (up) + 去 (go). Similar to 上来 but away from speaker.",
+    "example_zh": "他上去了",
+    "example_en": "tā shàngqù le — he went up",
+    "etymology": "Compound",
+    "components": [
+      18,
+      28
+    ]
+  },
+  {
+    "id": 138,
+    "type": "vocab",
+    "hanzi": "下去",
+    "pinyin": "xiàqù",
+    "tone": 4,
+    "english": "to go down / to continue",
+    "meaning": "To go down; to continue doing something. 下 (down) + 去 (go). Context determines meaning.",
+    "example_zh": "继续下去",
+    "example_en": "jìxù xiàqù — continue on, keep going",
+    "etymology": "Compound",
+    "components": [
+      19,
+      28
+    ]
+  },
+  {
+    "id": 139,
+    "type": "vocab",
+    "hanzi": "多年",
+    "pinyin": "duōnián",
+    "tone": 1,
+    "english": "many years",
+    "meaning": "Many years. 多 (many) + 年 (year). 多年来 = for many years, over the years.",
+    "example_zh": "多年来他一直努力",
+    "example_en": "duōnián lái tā yīzhí nǔlì — he has worked hard for many years",
+    "etymology": "Compound",
+    "components": [
+      35,
+      34
+    ]
+  },
+  {
+    "id": 140,
+    "type": "vocab",
+    "hanzi": "大国",
+    "pinyin": "dàguó",
+    "tone": 4,
+    "english": "great power / large country",
+    "meaning": "A great power, major nation. 大 (big/great) + 国 (country). China, USA, etc. are 大国.",
+    "example_zh": "中国是大国",
+    "example_en": "Zhōngguó shì dàguó — China is a great power",
+    "etymology": "Compound",
+    "components": [
+      6,
+      9
+    ]
+  },
+  {
+    "id": 41,
+    "type": "character",
+    "hanzi": "们",
+    "pinyin": "men",
+    "tone": 0,
+    "english": "plural suffix",
+    "meaning": "Plural suffix for pronouns: 我们=we, 你们=you all, 他们=they. Always neutral tone, unstressed.",
+    "example_zh": "他们是好朋友",
+    "example_en": "tāmen shì hǎo péngyou — they are good friends",
+    "etymology": "Compound"
+  },
+  {
+    "id": 42,
+    "type": "character",
+    "hanzi": "这",
+    "pinyin": "zhè",
+    "tone": 4,
+    "english": "this",
+    "meaning": "This (nearby). 这个=this one. Opposite of 那 (nà, that). Essential demonstrative.",
+    "example_zh": "这是什么",
+    "example_en": "zhè shì shénme — what is this?",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 43,
+    "type": "character",
+    "hanzi": "那",
+    "pinyin": "nà",
+    "tone": 4,
+    "english": "that",
+    "meaning": "That (far away). 那个=that one. Also means 'then/well then'.",
+    "example_zh": "那是谁",
+    "example_en": "nà shì shuí — who is that?",
+    "etymology": "Compound"
+  },
+  {
+    "id": 44,
+    "type": "character",
+    "hanzi": "个",
+    "pinyin": "gè",
+    "tone": 4,
+    "english": "(measure word)",
+    "meaning": "Most common measure word for people and objects. 一个人=one person. 三个苹果=three apples.",
+    "example_zh": "三个苹果",
+    "example_en": "sān gè píngguǒ — three apples",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 45,
+    "type": "character",
+    "hanzi": "的",
+    "pinyin": "de",
+    "tone": 0,
+    "english": "(possessive particle)",
+    "meaning": "Possessive/modifying particle. 我的书=my book. One of the most used characters in Chinese.",
+    "example_zh": "我的书",
+    "example_en": "wǒ de shū — my book",
+    "etymology": "Compound"
+  },
+  {
+    "id": 46,
+    "type": "character",
+    "hanzi": "了",
+    "pinyin": "le",
+    "tone": 0,
+    "english": "(completed action particle)",
+    "meaning": "Marks completed action or change of state. 他来了=he came. 天黑了=it got dark.",
+    "example_zh": "我吃了",
+    "example_en": "wǒ chī le — I ate (already)",
+    "etymology": "Compound"
+  },
+  {
+    "id": 47,
+    "type": "character",
+    "hanzi": "也",
+    "pinyin": "yě",
+    "tone": 3,
+    "english": "also / too",
+    "meaning": "Also, too, as well. 我也是=me too. Placed before the verb.",
+    "example_zh": "我也喜欢",
+    "example_en": "wǒ yě xǐhuān — I also like it",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 48,
+    "type": "character",
+    "hanzi": "和",
+    "pinyin": "hé",
+    "tone": 2,
+    "english": "and / with",
+    "meaning": "And, with — connects nouns. 你和我=you and me. Not used between verbs like English 'and'.",
+    "example_zh": "你和我",
+    "example_en": "nǐ hé wǒ — you and me",
+    "etymology": "Compound"
+  },
+  {
+    "id": 49,
+    "type": "character",
+    "hanzi": "就",
+    "pinyin": "jiù",
+    "tone": 4,
+    "english": "then / right away / just",
+    "meaning": "Then, right away, just. 就是=exactly, that's right. 我就来=I'll be right there.",
+    "example_zh": "我就来",
+    "example_en": "wǒ jiù lái — I'll be right there",
+    "etymology": "Compound"
+  },
+  {
+    "id": 50,
+    "type": "character",
+    "hanzi": "都",
+    "pinyin": "dōu",
+    "tone": 1,
+    "english": "all / both",
+    "meaning": "All, both, every. 大家都来了=everyone came. 都行=both are fine.",
+    "example_zh": "大家都来了",
+    "example_en": "dàjiā dōu lái le — everyone came",
+    "etymology": "Compound"
+  },
+  {
+    "id": 51,
+    "type": "character",
+    "hanzi": "很",
+    "pinyin": "hěn",
+    "tone": 3,
+    "english": "very",
+    "meaning": "Very. Default intensifier before adjectives. 很好=very good. Often just links adjective to subject.",
+    "example_zh": "她很漂亮",
+    "example_en": "tā hěn piàoliang — she is very beautiful",
+    "etymology": "Compound"
+  },
+  {
+    "id": 52,
+    "type": "character",
+    "hanzi": "对",
+    "pinyin": "duì",
+    "tone": 4,
+    "english": "correct / toward",
+    "meaning": "Correct, right, toward. 对不对=is that right? 对着=facing toward.",
+    "example_zh": "你说得对",
+    "example_en": "nǐ shuō de duì — you are correct",
+    "etymology": "Compound"
+  },
+  {
+    "id": 53,
+    "type": "character",
+    "hanzi": "会",
+    "pinyin": "huì",
+    "tone": 4,
+    "english": "can / will / meeting",
+    "meaning": "Can (learned skill), will (future), meeting. 你会吗=can you? 开会=hold a meeting.",
+    "example_zh": "你会说中文吗",
+    "example_en": "nǐ huì shuō Zhōngwén ma — can you speak Chinese?",
+    "etymology": "Compound"
+  },
+  {
+    "id": 54,
+    "type": "character",
+    "hanzi": "没",
+    "pinyin": "méi",
+    "tone": 2,
+    "english": "not have / haven't",
+    "meaning": "Negation for 有 and past actions. 没有=don't have. 没去=didn't go.",
+    "example_zh": "我没有钱",
+    "example_en": "wǒ méiyǒu qián — I have no money",
+    "etymology": "Compound"
+  },
+  {
+    "id": 55,
+    "type": "character",
+    "hanzi": "还",
+    "pinyin": "hái",
+    "tone": 2,
+    "english": "still / also / yet",
+    "meaning": "Still, also, yet. 还在=still here. 还是=or / still is.",
+    "example_zh": "你还在吗",
+    "example_en": "nǐ hái zài ma — are you still here?",
+    "etymology": "Compound"
+  },
+  {
+    "id": 56,
+    "type": "character",
+    "hanzi": "时",
+    "pinyin": "shí",
+    "tone": 2,
+    "english": "time / hour / when",
+    "meaning": "Time, hour, when. 有时=sometimes. 那时=at that time. Used in many time expressions.",
+    "example_zh": "有时候我很忙",
+    "example_en": "yǒu shíhou wǒ hěn máng — sometimes I'm very busy",
+    "etymology": "Compound"
+  },
+  {
+    "id": 57,
+    "type": "character",
+    "hanzi": "为",
+    "pinyin": "wèi",
+    "tone": 4,
+    "english": "for / because of",
+    "meaning": "For, because of. 为什么=why. 为了=in order to.",
+    "example_zh": "为什么不来",
+    "example_en": "wèishénme bù lái — why aren't you coming?",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 58,
+    "type": "character",
+    "hanzi": "所",
+    "pinyin": "suǒ",
+    "tone": 3,
+    "english": "(structure word) / place",
+    "meaning": "Structure word. 所以=therefore. 所有=all/everything. 厕所=restroom.",
+    "example_zh": "所以我来了",
+    "example_en": "suǒyǐ wǒ lái le — so I came",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 59,
+    "type": "character",
+    "hanzi": "以",
+    "pinyin": "yǐ",
+    "tone": 3,
+    "english": "by / with / because",
+    "meaning": "By, because. 所以=therefore. 以前=before. 以为=to assume.",
+    "example_zh": "以前我不会",
+    "example_en": "yǐqián wǒ bú huì — I couldn't before",
+    "etymology": "Compound"
+  },
+  {
+    "id": 60,
+    "type": "character",
+    "hanzi": "但",
+    "pinyin": "dàn",
+    "tone": 4,
+    "english": "but / however",
+    "meaning": "But, however. 但是=but. 不但...而且=not only...but also.",
+    "example_zh": "想去但没钱",
+    "example_en": "xiǎng qù dàn méi qián — want to go but have no money",
+    "etymology": "Compound"
+  },
+  {
+    "id": 61,
+    "type": "character",
+    "hanzi": "如",
+    "pinyin": "rú",
+    "tone": 2,
+    "english": "like / as / if",
+    "meaning": "Like, as if. 如果=if. 如何=how. 如此=like this.",
+    "example_zh": "如果你来",
+    "example_en": "rúguǒ nǐ lái — if you come",
+    "etymology": "Compound"
+  },
+  {
+    "id": 62,
+    "type": "character",
+    "hanzi": "果",
+    "pinyin": "guǒ",
+    "tone": 3,
+    "english": "fruit / result",
+    "meaning": "Fruit, result. 水果=fruit. 结果=result. 如果=if.",
+    "example_zh": "水果很好吃",
+    "example_en": "shuǐguǒ hěn hǎochī — fruit is delicious",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 63,
+    "type": "character",
+    "hanzi": "用",
+    "pinyin": "yòng",
+    "tone": 4,
+    "english": "to use",
+    "meaning": "To use. 有用=useful. 用法=usage. 不用=no need to.",
+    "example_zh": "怎么用",
+    "example_en": "zěnme yòng — how do you use it?",
+    "etymology": "Compound"
+  },
+  {
+    "id": 64,
+    "type": "character",
+    "hanzi": "子",
+    "pinyin": "zi",
+    "tone": 0,
+    "english": "child / (noun suffix)",
+    "meaning": "Child; noun suffix. 孩子=child. 桌子=table. 饺子=dumplings.",
+    "example_zh": "孩子很可爱",
+    "example_en": "háizi hěn kě'ài — the child is cute",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 65,
+    "type": "character",
+    "hanzi": "心",
+    "pinyin": "xīn",
+    "tone": 1,
+    "english": "heart / mind",
+    "meaning": "Heart, mind. 小心=careful. 开心=happy. 心里=in one's heart.",
+    "example_zh": "我很开心",
+    "example_en": "wǒ hěn kāixīn — I'm very happy",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 66,
+    "type": "character",
+    "hanzi": "开",
+    "pinyin": "kāi",
+    "tone": 1,
+    "english": "to open / to start",
+    "meaning": "Open, start, turn on. 开始=begin. 开心=happy. 开门=open door.",
+    "example_zh": "请开门",
+    "example_en": "qǐng kāi mén — please open the door",
+    "etymology": "Compound"
+  },
+  {
+    "id": 67,
+    "type": "character",
+    "hanzi": "过",
+    "pinyin": "guò",
+    "tone": 4,
+    "english": "to pass / (experience particle)",
+    "meaning": "Pass, cross; experience marker. 过来=come over. 吃过=have eaten before.",
+    "example_zh": "我去过中国",
+    "example_en": "wǒ qù guò Zhōngguó — I've been to China",
+    "etymology": "Compound"
+  },
+  {
+    "id": 68,
+    "type": "character",
+    "hanzi": "得",
+    "pinyin": "de",
+    "tone": 0,
+    "english": "(result/manner particle)",
+    "meaning": "Result particle showing degree/manner. 做得好=do well. 跑得快=run fast.",
+    "example_zh": "他跑得很快",
+    "example_en": "tā pǎo de hěn kuài — he runs very fast",
+    "etymology": "Compound"
+  },
+  {
+    "id": 69,
+    "type": "character",
+    "hanzi": "能",
+    "pinyin": "néng",
+    "tone": 2,
+    "english": "can / able to",
+    "meaning": "Can, able to (circumstantial). 能来吗=can you come? Different from 会 (learned skill).",
+    "example_zh": "你能帮我吗",
+    "example_en": "nǐ néng bāng wǒ ma — can you help me?",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 70,
+    "type": "character",
+    "hanzi": "等",
+    "pinyin": "děng",
+    "tone": 3,
+    "english": "to wait / etc.",
+    "meaning": "Wait, et cetera. 等一下=wait a moment. 等等=et cetera.",
+    "example_zh": "请等一下",
+    "example_en": "qǐng děng yīxià — please wait a moment",
+    "etymology": "Compound"
+  },
+  {
+    "id": 71,
+    "type": "character",
+    "hanzi": "只",
+    "pinyin": "zhǐ",
+    "tone": 3,
+    "english": "only / just",
+    "meaning": "Only, just. 只有=only have. 只是=it's just that. 只能=can only.",
+    "example_zh": "我只有一个",
+    "example_en": "wǒ zhǐ yǒu yīgè — I only have one",
+    "etymology": "Compound"
+  },
+  {
+    "id": 72,
+    "type": "character",
+    "hanzi": "知",
+    "pinyin": "zhī",
+    "tone": 1,
+    "english": "to know",
+    "meaning": "To know (a fact). 知道=to know. 知识=knowledge.",
+    "example_zh": "你知道吗",
+    "example_en": "nǐ zhīdào ma — do you know?",
+    "etymology": "Compound"
+  },
+  {
+    "id": 73,
+    "type": "character",
+    "hanzi": "道",
+    "pinyin": "dào",
+    "tone": 4,
+    "english": "road / way",
+    "meaning": "Road, way, principle. 知道=know. 道理=reason/logic.",
+    "example_zh": "这条路很长",
+    "example_en": "zhè tiáo lù hěn cháng — this road is very long",
+    "etymology": "Compound"
+  },
+  {
+    "id": 74,
+    "type": "character",
+    "hanzi": "自",
+    "pinyin": "zì",
+    "tone": 4,
+    "english": "self / from",
+    "meaning": "Self, from. 自己=oneself. 自然=natural. 自由=freedom.",
+    "example_zh": "自己做",
+    "example_en": "zìjǐ zuò — do it yourself",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 75,
+    "type": "character",
+    "hanzi": "又",
+    "pinyin": "yòu",
+    "tone": 4,
+    "english": "again / also",
+    "meaning": "Again, also, both. 又来了=here we go again. 又...又...=both...and....",
+    "example_zh": "他又来了",
+    "example_en": "tā yòu lái le — he came again",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 76,
+    "type": "character",
+    "hanzi": "走",
+    "pinyin": "zǒu",
+    "tone": 3,
+    "english": "to walk / to leave",
+    "meaning": "Walk, leave. 走吧=let's go. 走路=walk. 我走了=I'm leaving.",
+    "example_zh": "我们走吧",
+    "example_en": "wǒmen zǒu ba — let's go",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 77,
+    "type": "character",
+    "hanzi": "方",
+    "pinyin": "fāng",
+    "tone": 1,
+    "english": "direction / method",
+    "meaning": "Direction, square, method. 地方=place. 方法=method. 东方=east.",
+    "example_zh": "这个方法很好",
+    "example_en": "zhège fāngfǎ hěn hǎo — this method is very good",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 78,
+    "type": "character",
+    "hanzi": "门",
+    "pinyin": "mén",
+    "tone": 2,
+    "english": "door / gate",
+    "meaning": "Door, gate, entrance. 开门=open door. 门口=doorway. 专门=specially.",
+    "example_zh": "请开门",
+    "example_en": "qǐng kāi mén — please open the door",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 79,
+    "type": "character",
+    "hanzi": "里",
+    "pinyin": "lǐ",
+    "tone": 3,
+    "english": "inside / within",
+    "meaning": "Inside, within. 里面=inside. 心里=in one's heart. 这里=here.",
+    "example_zh": "在里面",
+    "example_en": "zài lǐmiàn — inside",
+    "etymology": "Ideographic"
+  },
+  {
+    "id": 80,
+    "type": "character",
+    "hanzi": "面",
+    "pinyin": "miàn",
+    "tone": 4,
+    "english": "face / surface / noodles",
+    "meaning": "Face, surface, side, noodles. 上面=above. 下面=below. 面对=face up to.",
+    "example_zh": "上面有什么",
+    "example_en": "shàngmiàn yǒu shénme — what's on top?",
+    "etymology": "Pictographic"
+  },
+  {
+    "id": 141,
+    "type": "vocab",
+    "hanzi": "我们",
+    "pinyin": "wǒmen",
+    "tone": 3,
+    "english": "we / us",
+    "meaning": "We, us. 我 (I) + 们 (plural). 我们的=our.",
+    "example_zh": "我们是朋友",
+    "example_en": "wǒmen shì péngyou — we are friends",
+    "etymology": "Compound",
+    "components": [
+      20,
+      41
+    ]
+  },
+  {
+    "id": 142,
+    "type": "vocab",
+    "hanzi": "你们",
+    "pinyin": "nǐmen",
+    "tone": 3,
+    "english": "you (plural)",
+    "meaning": "You all. 你 (you) + 们 (plural). Used for groups.",
+    "example_zh": "你们好",
+    "example_en": "nǐmen hǎo — hello everyone",
+    "etymology": "Compound",
+    "components": [
+      21,
+      41
+    ]
+  },
+  {
+    "id": 143,
+    "type": "vocab",
+    "hanzi": "他们",
+    "pinyin": "tāmen",
+    "tone": 1,
+    "english": "they / them",
+    "meaning": "They/them. 他 (he) + 们 (plural). Mixed or male group.",
+    "example_zh": "他们来了",
+    "example_en": "tāmen lái le — they came",
+    "etymology": "Compound",
+    "components": [
+      22,
+      41
+    ]
+  },
+  {
+    "id": 144,
+    "type": "vocab",
+    "hanzi": "这个",
+    "pinyin": "zhège",
+    "tone": 4,
+    "english": "this one",
+    "meaning": "This one. 这 (this) + 个 (measure word). Most common demonstrative.",
+    "example_zh": "这个好",
+    "example_en": "zhège hǎo — this one is good",
+    "etymology": "Compound",
+    "components": [
+      42,
+      44
+    ]
+  },
+  {
+    "id": 145,
+    "type": "vocab",
+    "hanzi": "那个",
+    "pinyin": "nàge",
+    "tone": 4,
+    "english": "that one",
+    "meaning": "That one. 那 (that) + 个 (measure word).",
+    "example_zh": "那个是什么",
+    "example_en": "nàge shì shénme — what is that?",
+    "etymology": "Compound",
+    "components": [
+      43,
+      44
+    ]
+  },
+  {
+    "id": 146,
+    "type": "vocab",
+    "hanzi": "的时候",
+    "pinyin": "de shíhou",
+    "tone": 0,
+    "english": "when / at the time of",
+    "meaning": "When, at the time of. 吃饭的时候=when eating.",
+    "example_zh": "睡觉的时候",
+    "example_en": "shuìjiào de shíhou — when sleeping",
+    "etymology": "Compound",
+    "components": [
+      45,
+      56
+    ]
+  },
+  {
+    "id": 147,
+    "type": "vocab",
+    "hanzi": "为什么",
+    "pinyin": "wèishénme",
+    "tone": 4,
+    "english": "why",
+    "meaning": "Why. 为 (because of) + 什么 (what). Essential question word.",
+    "example_zh": "为什么不来",
+    "example_en": "wèishénme bù lái — why aren't you coming?",
+    "etymology": "Compound",
+    "components": [
+      57,
+      52
+    ]
+  },
+  {
+    "id": 148,
+    "type": "vocab",
+    "hanzi": "所以",
+    "pinyin": "suǒyǐ",
+    "tone": 3,
+    "english": "therefore / so",
+    "meaning": "Therefore, so. 因为...所以...=because...so....",
+    "example_zh": "所以我来了",
+    "example_en": "suǒyǐ wǒ lái le — so I came",
+    "etymology": "Compound",
+    "components": [
+      58,
+      59
+    ]
+  },
+  {
+    "id": 149,
+    "type": "vocab",
+    "hanzi": "如果",
+    "pinyin": "rúguǒ",
+    "tone": 2,
+    "english": "if",
+    "meaning": "If. Most common conditional in Chinese.",
+    "example_zh": "如果你来",
+    "example_en": "rúguǒ nǐ lái — if you come",
+    "etymology": "Compound",
+    "components": [
+      61,
+      62
+    ]
+  },
+  {
+    "id": 150,
+    "type": "vocab",
+    "hanzi": "水果",
+    "pinyin": "shuǐguǒ",
+    "tone": 3,
+    "english": "fruit",
+    "meaning": "Fruit. 水 (water) + 果 (fruit/result). Generic for all fruits.",
+    "example_zh": "我喜欢吃水果",
+    "example_en": "wǒ xǐhuān chī shuǐguǒ — I like eating fruit",
+    "etymology": "Compound",
+    "components": [
+      13,
+      62
+    ]
+  },
+  {
+    "id": 151,
+    "type": "vocab",
+    "hanzi": "有用",
+    "pinyin": "yǒuyòng",
+    "tone": 3,
+    "english": "useful",
+    "meaning": "Useful. 有 (have) + 用 (use). 没用=useless.",
+    "example_zh": "这很有用",
+    "example_en": "zhè hěn yǒuyòng — this is very useful",
+    "etymology": "Compound",
+    "components": [
+      24,
+      63
+    ]
+  },
+  {
+    "id": 152,
+    "type": "vocab",
+    "hanzi": "开心",
+    "pinyin": "kāixīn",
+    "tone": 1,
+    "english": "happy",
+    "meaning": "Happy, glad. 开 (open) + 心 (heart) — open-hearted. 不开心=unhappy.",
+    "example_zh": "我很开心",
+    "example_en": "wǒ hěn kāixīn — I'm very happy",
+    "etymology": "Compound",
+    "components": [
+      66,
+      65
+    ]
+  },
+  {
+    "id": 153,
+    "type": "vocab",
+    "hanzi": "知道",
+    "pinyin": "zhīdào",
+    "tone": 1,
+    "english": "to know",
+    "meaning": "To know a fact. 知 (know) + 道 (way/truth). 我知道=I know. 不知道=don't know.",
+    "example_zh": "你知道吗",
+    "example_en": "nǐ zhīdào ma — do you know?",
+    "etymology": "Compound",
+    "components": [
+      72,
+      73
+    ]
+  },
+  {
+    "id": 154,
+    "type": "vocab",
+    "hanzi": "自己",
+    "pinyin": "zìjǐ",
+    "tone": 4,
+    "english": "oneself / yourself",
+    "meaning": "Oneself. 自 (self) + 己 (self). 自己来=come yourself.",
+    "example_zh": "自己做饭",
+    "example_en": "zìjǐ zuòfàn — cook for yourself",
+    "etymology": "Compound",
+    "components": [
+      74,
+      74
+    ]
+  },
+  {
+    "id": 155,
+    "type": "vocab",
+    "hanzi": "走路",
+    "pinyin": "zǒulù",
+    "tone": 3,
+    "english": "to walk",
+    "meaning": "To walk. 走 (walk) + 路 (road).",
+    "example_zh": "我喜欢走路",
+    "example_en": "wǒ xǐhuān zǒulù — I like walking",
+    "etymology": "Compound",
+    "components": [
+      76,
+      73
+    ]
+  },
+  {
+    "id": 156,
+    "type": "vocab",
+    "hanzi": "开门",
+    "pinyin": "kāimén",
+    "tone": 1,
+    "english": "to open the door",
+    "meaning": "Open the door. 开 (open) + 门 (door).",
+    "example_zh": "请开门",
+    "example_en": "qǐng kāimén — please open the door",
+    "etymology": "Compound",
+    "components": [
+      66,
+      78
+    ]
+  },
+  {
+    "id": 157,
+    "type": "vocab",
+    "hanzi": "里面",
+    "pinyin": "lǐmiàn",
+    "tone": 3,
+    "english": "inside",
+    "meaning": "Inside, within. 里 (inside) + 面 (surface).",
+    "example_zh": "在里面等我",
+    "example_en": "zài lǐmiàn děng wǒ — wait for me inside",
+    "etymology": "Compound",
+    "components": [
+      79,
+      80
+    ]
+  },
+  {
+    "id": 158,
+    "type": "vocab",
+    "hanzi": "上面",
+    "pinyin": "shàngmiàn",
+    "tone": 4,
+    "english": "above / on top",
+    "meaning": "Above, on top. 上 (up) + 面 (surface).",
+    "example_zh": "书在上面",
+    "example_en": "shū zài shàngmiàn — the book is on top",
+    "etymology": "Compound",
+    "components": [
+      18,
+      80
+    ]
+  },
+  {
+    "id": 159,
+    "type": "vocab",
+    "hanzi": "下面",
+    "pinyin": "xiàmiàn",
+    "tone": 4,
+    "english": "below / underneath",
+    "meaning": "Below, underneath. 下 (down) + 面 (surface).",
+    "example_zh": "请看下面",
+    "example_en": "qǐng kàn xiàmiàn — please look below",
+    "etymology": "Compound",
+    "components": [
+      19,
+      80
+    ]
+  },
+  {
+    "id": 160,
+    "type": "vocab",
+    "hanzi": "没有",
+    "pinyin": "méiyǒu",
+    "tone": 2,
+    "english": "don't have / there isn't",
+    "meaning": "Don't have, there isn't. 没 (not) + 有 (have). Most common negation of 有.",
+    "example_zh": "我没有时间",
+    "example_en": "wǒ méiyǒu shíjiān — I don't have time",
+    "etymology": "Compound",
+    "components": [
+      54,
+      24
+    ]
+  },
+  {
+    "id": 161,
+    "type": "vocab",
+    "hanzi": "时间",
+    "pinyin": "shíjiān",
+    "tone": 2,
+    "english": "time",
+    "meaning": "Time. 时 (time) + 间 (between/gap). 没时间=no time. 有时间=have time.",
+    "example_zh": "没有时间",
+    "example_en": "méiyǒu shíjiān — no time",
+    "etymology": "Compound",
+    "components": [
+      56,
+      56
+    ]
+  },
+  {
+    "id": 162,
+    "type": "vocab",
+    "hanzi": "以前",
+    "pinyin": "yǐqián",
+    "tone": 3,
+    "english": "before / in the past",
+    "meaning": "Before, in the past. 以 (by/at) + 前 (front/before).",
+    "example_zh": "以前我不知道",
+    "example_en": "yǐqián wǒ bù zhīdào — I didn't know before",
+    "etymology": "Compound",
+    "components": [
+      59,
+      34
+    ]
+  },
+  {
+    "id": 163,
+    "type": "vocab",
+    "hanzi": "方法",
+    "pinyin": "fāngfǎ",
+    "tone": 1,
+    "english": "method / way",
+    "meaning": "Method, approach. 方 (direction) + 法 (law/method).",
+    "example_zh": "这个方法很好",
+    "example_en": "zhège fāngfǎ hěn hǎo — this method is very good",
+    "etymology": "Compound",
+    "components": [
+      77,
+      63
+    ]
+  },
+  {
+    "id": 164,
+    "type": "vocab",
+    "hanzi": "但是",
+    "pinyin": "dànshì",
+    "tone": 4,
+    "english": "but / however",
+    "meaning": "But, however. 但 (but) + 是 (is). Most common contrastive connector.",
+    "example_zh": "我想去，但是没钱",
+    "example_en": "wǒ xiǎng qù, dànshì méi qián — I want to go but have no money",
+    "etymology": "Compound",
+    "components": [
+      60,
+      23
+    ]
+  },
+  {
+    "id": 165,
+    "type": "vocab",
+    "hanzi": "过来",
+    "pinyin": "guòlai",
+    "tone": 4,
+    "english": "to come over",
+    "meaning": "Come over to this side. 过 (cross) + 来 (come). Directional complement.",
+    "example_zh": "你过来一下",
+    "example_en": "nǐ guòlai yīxià — come over here",
+    "etymology": "Compound",
+    "components": [
+      67,
+      27
+    ]
+  },
+  {
+    "id": 166,
+    "type": "vocab",
+    "hanzi": "能力",
+    "pinyin": "nénglì",
+    "tone": 2,
+    "english": "ability / capability",
+    "meaning": "Ability, capability. 能 (can) + 力 (strength).",
+    "example_zh": "他很有能力",
+    "example_en": "tā hěn yǒu nénglì — he is very capable",
+    "etymology": "Compound",
+    "components": [
+      69,
+      69
+    ]
+  },
+  {
+    "id": 167,
+    "type": "vocab",
+    "hanzi": "只有",
+    "pinyin": "zhǐyǒu",
+    "tone": 3,
+    "english": "only / only when",
+    "meaning": "Only have, only when. 只 (only) + 有 (have).",
+    "example_zh": "只有一个方法",
+    "example_en": "zhǐyǒu yīgè fāngfǎ — there's only one way",
+    "etymology": "Compound",
+    "components": [
+      71,
+      24
+    ]
+  },
+  {
+    "id": 168,
+    "type": "vocab",
+    "hanzi": "对了",
+    "pinyin": "duì le",
+    "tone": 4,
+    "english": "that's right / by the way",
+    "meaning": "That's right! By the way (interjection).",
+    "example_zh": "对了，我忘了",
+    "example_en": "duì le, wǒ wàng le — oh right, I forgot",
+    "etymology": "Compound",
+    "components": [
+      52,
+      46
+    ]
+  },
+  {
+    "id": 169,
+    "type": "vocab",
+    "hanzi": "开始",
+    "pinyin": "kāishǐ",
+    "tone": 1,
+    "english": "to begin / start",
+    "meaning": "Begin, start. 开 (open) + 始 (begin). 开始了=it has begun.",
+    "example_zh": "我们开始吧",
+    "example_en": "wǒmen kāishǐ ba — let's begin",
+    "etymology": "Compound",
+    "components": [
+      66,
+      66
+    ]
+  },
+  {
+    "id": 170,
+    "type": "vocab",
+    "hanzi": "等一下",
+    "pinyin": "děng yīxià",
+    "tone": 3,
+    "english": "wait a moment",
+    "meaning": "Wait a moment. 等 (wait) + 一 (one) + 下 (moment). Very common request.",
+    "example_zh": "请等一下",
+    "example_en": "qǐng děng yīxià — please wait a moment",
+    "etymology": "Compound",
+    "components": [
+      70,
+      1
+    ]
+  },
+  {
+    "id": 171,
+    "type": "vocab",
+    "hanzi": "还是",
+    "pinyin": "háishi",
+    "tone": 2,
+    "english": "or / still is",
+    "meaning": "Or (in questions); still is. 还 + 是. 你去还是他去=you or him?",
+    "example_zh": "你去还是他去",
+    "example_en": "nǐ qù háishi tā qù — are you going or is he?",
+    "etymology": "Compound",
+    "components": [
+      55,
+      23
+    ]
+  },
+  {
+    "id": 172,
+    "type": "vocab",
+    "hanzi": "不对",
+    "pinyin": "bú duì",
+    "tone": 2,
+    "english": "incorrect / that's wrong",
+    "meaning": "Not right. 不 (not) + 对 (correct). 这样不对=this isn't right.",
+    "example_zh": "这样不对",
+    "example_en": "zhèyàng bú duì — this way is not right",
+    "etymology": "Compound",
+    "components": [
+      25,
+      52
+    ]
+  },
+  {
+    "id": 173,
+    "type": "vocab",
+    "hanzi": "自然",
+    "pinyin": "zìrán",
+    "tone": 4,
+    "english": "natural / naturally",
+    "meaning": "Natural, naturally. 自 (self) + 然 (so/thus). 大自然=nature.",
+    "example_zh": "这很自然",
+    "example_en": "zhè hěn zìrán — this is very natural",
+    "etymology": "Compound",
+    "components": [
+      74,
+      74
+    ]
+  },
+  {
+    "id": 174,
+    "type": "vocab",
+    "hanzi": "面对",
+    "pinyin": "miànduì",
+    "tone": 4,
+    "english": "to face / to confront",
+    "meaning": "To face, confront. 面 (face) + 对 (toward).",
+    "example_zh": "面对困难",
+    "example_en": "miànduì kùnnán — face difficulties",
+    "etymology": "Compound",
+    "components": [
+      80,
+      52
+    ]
+  },
+  {
+    "id": 175,
+    "type": "vocab",
+    "hanzi": "用法",
+    "pinyin": "yòngfǎ",
+    "tone": 4,
+    "english": "usage / how to use",
+    "meaning": "Usage, how to use something. 用 (use) + 法 (method).",
+    "example_zh": "这个词的用法",
+    "example_en": "zhège cí de yòngfǎ — the usage of this word",
+    "etymology": "Compound",
+    "components": [
+      63,
+      77
+    ]
+  },
+  {
+    "id": 176,
+    "type": "vocab",
+    "hanzi": "以为",
+    "pinyin": "yǐwéi",
+    "tone": 3,
+    "english": "to think / to assume",
+    "meaning": "To think/assume (often wrongly). 以 + 为. 我以为他来了=I thought he came.",
+    "example_zh": "我以为他来了",
+    "example_en": "wǒ yǐwéi tā lái le — I thought he came",
+    "etymology": "Compound",
+    "components": [
+      59,
+      57
+    ]
+  },
+  {
+    "id": 177,
+    "type": "vocab",
+    "hanzi": "走过来",
+    "pinyin": "zǒu guòlai",
+    "tone": 3,
+    "english": "to walk over here",
+    "meaning": "Walk over here. 走 (walk) + 过 (cross) + 来 (come).",
+    "example_zh": "他走过来了",
+    "example_en": "tā zǒu guòlai le — he walked over",
+    "etymology": "Compound",
+    "components": [
+      76,
+      67
+    ]
+  },
+  {
+    "id": 178,
+    "type": "vocab",
+    "hanzi": "又...又...",
+    "pinyin": "yòu...yòu...",
+    "tone": 4,
+    "english": "both...and...",
+    "meaning": "Both...and.... Pattern: 又大又漂亮=both big and beautiful.",
+    "example_zh": "又快又好",
+    "example_en": "yòu kuài yòu hǎo — both fast and good",
+    "etymology": "Compound",
+    "components": [
+      75,
+      75
+    ]
+  },
+  {
+    "id": 179,
+    "type": "vocab",
+    "hanzi": "心里",
+    "pinyin": "xīnlǐ",
+    "tone": 1,
+    "english": "in one's heart / in one's mind",
+    "meaning": "In one's heart/mind. 心 (heart) + 里 (inside).",
+    "example_zh": "心里很开心",
+    "example_en": "xīnlǐ hěn kāixīn — feel happy inside",
+    "etymology": "Compound",
+    "components": [
+      65,
+      79
+    ]
+  },
+  {
+    "id": 180,
+    "type": "vocab",
+    "hanzi": "门口",
+    "pinyin": "ménkǒu",
+    "tone": 2,
+    "english": "doorway / entrance",
+    "meaning": "Doorway, entrance. 门 (door) + 口 (mouth/opening).",
+    "example_zh": "在门口等我",
+    "example_en": "zài ménkǒu děng wǒ — wait for me at the entrance",
+    "etymology": "Compound",
+    "components": [
+      78,
+      5
+    ]
+  }
 ]
