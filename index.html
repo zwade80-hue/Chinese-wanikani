@@ -247,7 +247,7 @@ function fetchInfo(w){
 }
 
 function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="zh-CN";u.rate=settings.slowAudio?0.6:0.85;const vs=speechSynthesis.getVoices();const v=vs.find(x=>x.lang==="zh-CN")||vs.find(x=>x.lang.startsWith("zh"));if(v)u.voice=v;speechSynthesis.speak(u);}
-function spkBtn(t,sz="15px"){return '<button onclick="event.stopPropagation();speak(\''+t.replace(/'/g,"\\'")+\'\')" style="background:none;border:1px solid var(--border2);border-radius:8px;padding:6px 10px;color:var(--muted);font-size:'+sz+';cursor:pointer;line-height:1" title="Play audio">🔊</button>';}
+function spkBtn(t,sz){sz=sz||"15px";var safe=t.replace(/"/g,"&quot;");return '<button onclick="event.stopPropagation();speak(this.dataset.t)" data-t="'+safe+'" style="background:none;border:1px solid var(--border2);border-radius:8px;padding:6px 10px;color:var(--muted);font-size:'+sz+';cursor:pointer;line-height:1" title="Play audio">🔊</button>';}
 
 function finishSession(){if(sessionStartTime){addTime(Date.now()-sessionStartTime);updateStreak();sessionStartTime=null;}}
 
