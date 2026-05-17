@@ -211,6 +211,14 @@ function isNearMiss(inp,exp){const a=normalize(inp),acc=getAccepted(exp);if(acc.
 function getSyns(id){return JSON.parse(localStorage.getItem("hanzi-syn-"+id)||"[]");}
 function addSyn(id,s){s=s.trim().toLowerCase();if(!s)return;const ss=getSyns(id);if(!ss.includes(s)){ss.push(s);localStorage.setItem("hanzi-syn-"+id,JSON.stringify(ss));}}
 function rmSyn(id,s){localStorage.setItem("hanzi-syn-"+id,JSON.stringify(getSyns(id).filter(x=>x!==s)));}
+
+// ── PINYIN UTILS ─────────────────────────────────────────────────────────────
+const TONE_MAP={'a':['ā','á','ǎ','à','a'],'e':['ē','é','ě','è','e'],'i':['ī','í','ǐ','ì','i'],'o':['ō','ó','ǒ','ò','o'],'u':['ū','ú','ǔ','ù','u'],'ü':['ǖ','ǘ','ǚ','ǜ','ü'],'v':['ǖ','ǘ','ǚ','ǜ','ü']};
+const VOWEL_ORDER=['a','e','o','ü','v','i','u'];
+function numToMark(syl){const m=syl.match(/^([a-züv]+)([0-5])$/i);if(!m)return syl;const base=m[1].toLowerCase(),tone=parseInt(m[2]);if(tone===5||tone===0)return base;for(const v of VOWEL_ORDER){if(base.includes(v)){const map=TONE_MAP[v];if(map)return base.replace(v,map[tone-1]);}}return base;}
+function normalizePinyin(s){s=s.trim().toLowerCase().replace(/’/g,'').replace(/'/g,'').replace(/u:/g,'ü').replace(/v(?=[a-züv0-9])/g,'ü');s=s.replace(/[a-züv]+[0-5]/gi,m=>numToMark(m.toLowerCase()));return s.replace(/\s+/g,'').trim();}
+function checkPinyin(input,expected){return normalizePinyin(input)===normalizePinyin(expected);}
+
 function checkAnswer(a,b,id,type){
   if(type==="hanzi")return a.trim()===b.trim();
   if(similar(a,b))return true;
@@ -252,29 +260,66 @@ function spkBtn(t,sz){sz=sz||"15px";var safe=t.replace(/"/g,"&quot;");return '<b
 function finishSession(){if(sessionStartTime){addTime(Date.now()-sessionStartTime);updateStreak();sessionStartTime=null;}}
 
 function startLessons(){lessonQueue=availableLessons();if(!lessonQueue.length)return;lessonIdx=0;lessonPhase="learn";input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="lesson";render();}
-function startReviews(){const due=dueReviews();if(!due.length)return;window._stageShown=new Set();window._sc={};reviewQueue=[];due.forEach(w=>{reviewQueue.push({word:w,type:"meaning"});reviewQueue.push({word:w,type:"hanzi"});});for(let i=reviewQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[reviewQueue[i],reviewQueue[j]]=[reviewQueue[j],reviewQueue[i]];}reviewIdx=0;input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="review";render();}
+function startReviews(){const due=dueReviews();if(!due.length)return;window._stageShown=new Set();window._sc={};reviewQueue=[];due.forEach(w=>{reviewQueue.push({word:w,type:"meaning"});reviewQueue.push({word:w,type:"reading"});});for(let i=reviewQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[reviewQueue[i],reviewQueue[j]]=[reviewQueue[j],reviewQueue[i]];}reviewIdx=0;input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="review";render();}
 
 function advRev(){feedback=null;input="";nearMissActive=false;if(reviewIdx+1<reviewQueue.length){reviewIdx++;render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);}else{finishSession();const lv=checkLevelUp();save();sessionDone=true;showLevelUp=lv;render();}}
 function submitReview(){
   if(feedback){advRev();return;}
-  const{word,type}=reviewQueue[reviewIdx];
-  const expected=type==="meaning"?word.english:word.hanzi;
-  const cur=progress[word.id];
-  const correct=checkAnswer(input,expected,word.id,type);
+  const{word:w,type}=reviewQueue[reviewIdx];
+  const cur=progress[w.id];
+
+  // Determine correct answer and check it
+  let expected,correct;
+  if(type==="meaning"){
+    expected=w.english;
+    correct=checkAnswer(input,expected,w.id,"meaning");
+  } else {
+    // reading: show hanzi, type pinyin
+    expected=w.pinyin;
+    correct=checkPinyin(input,expected);
+  }
+
+  // Near-miss for meaning only (shake + hint, early return so user can fix typo)
   if(!correct&&type==="meaning"&&input.trim().length>0&&isNearMiss(input,expected)){
-    nearMissActive=true;const inp=document.getElementById("answer-input");
+    nearMissActive=true;
+    const inp=document.getElementById("answer-input");
     if(inp){inp.classList.remove("shake");void inp.offsetWidth;inp.classList.add("shake","wrong");}
     let hint=document.getElementById("near-miss-hint");
     if(!hint){hint=document.createElement("div");hint.id="near-miss-hint";hint.className="near-miss-hint";inp?.parentNode?.insertBefore(hint,inp.nextSibling);}
     const acc=getAccepted(expected),cl=acc.reduce((b,x)=>ed(normalize(input),x)<ed(normalize(input),b)?x:b,acc[0]);
-    hint.textContent='Almost! Did you mean "'+cl+'"?';return;
+    hint.textContent='Almost! Did you mean "'+cl+'"?';
+    return;
   }
-  nearMissActive=false;document.getElementById("near-miss-hint")?.remove();
-  if(!window._sc)window._sc={};if(!window._sc[word.id])window._sc[word.id]={meaning:null,hanzi:null};
-  if(correct)window._sc[word.id][type]=true;else if(window._sc[word.id][type]!==true)window._sc[word.id][type]=false;
-  const pair=window._sc[word.id],both=pair.meaning!==null&&pair.hanzi!==null,oldStage=cur.stage;let ns=cur.stage;
-  if(both){if(pair.meaning===true&&pair.hanzi===true)ns=Math.min(cur.stage+1,SRS_STAGES.length-1);else if(pair.meaning===false||pair.hanzi===false)ns=Math.max(cur.stage-1,0);progress[word.id]={...cur,stage:ns,nextReview:Date.now()+SRS_INTERVALS[ns]*3600000};save();if(ns>oldStage){if(!window._stageShown)window._stageShown=new Set();const k=word.id+"-"+ns;if(!window._stageShown.has(k)){window._stageShown.add(k);setTimeout(()=>showStagePopup(oldStage,ns,word.type),400);}}}
-  recAcc(word.id,correct);feedback={correct,answer:expected};sessionTotal++;if(correct)sessionCorrect++;render();setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
+  nearMissActive=false;
+  document.getElementById("near-miss-hint")?.remove();
+
+  // Track per-word scores (reset each session via window._sc set in startReviews)
+  if(!window._sc[w.id])window._sc[w.id]={meaning:null,reading:null};
+  if(correct) window._sc[w.id][type]=true;
+  else if(window._sc[w.id][type]!==true) window._sc[w.id][type]=false;
+
+  // Update SRS only when both parts answered
+  const pair=window._sc[w.id];
+  if(pair.meaning!==null&&pair.reading!==null){
+    const oldStage=cur.stage;
+    let ns=cur.stage;
+    if(pair.meaning===true&&pair.reading===true) ns=Math.min(cur.stage+1,SRS_STAGES.length-1);
+    else ns=Math.max(cur.stage-1,0);
+    progress[w.id]={...cur,stage:ns,nextReview:Date.now()+SRS_INTERVALS[ns]*3600000};
+    save();
+    if(ns>oldStage){
+      if(!window._stageShown)window._stageShown=new Set();
+      const k=w.id+"-"+ns;
+      if(!window._stageShown.has(k)){window._stageShown.add(k);setTimeout(()=>showStagePopup(oldStage,ns,w.type),400);}
+    }
+  }
+
+  recAcc(w.id,correct);
+  feedback={correct,answer:expected};
+  sessionTotal++;
+  if(correct)sessionCorrect++;
+  render();
+  setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
 }
 
 function advLesson(){feedback=null;input="";nearMissActive=false;if(lessonPhase==="learn"){lessonPhase="quiz-meaning";render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);return;}if(lessonPhase==="quiz-meaning"){lessonPhase="quiz-hanzi";render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);return;}if(lessonIdx+1<lessonQueue.length){lessonIdx++;lessonPhase="learn";render();}else{lessonQueue.forEach(w=>{progress[w.id]={...progress[w.id],lessonDone:true,stage:0,nextReview:Date.now()+SRS_INTERVALS[0]*3600000};});const today=new Date().toDateString(),g=lessonsToday();localStorage.setItem("hanzi-lastday",today);localStorage.setItem("hanzi-lessonstoday",g+lessonQueue.length);finishSession();const lv=checkLevelUp();save();sessionDone=true;showLevelUp=lv;render();}}
@@ -397,13 +442,13 @@ function renderLesson(app){
     setTimeout(()=>document.getElementById("next-btn")?.focus(),50);return;
   }
   const isMeaning=lessonPhase==="quiz-meaning",prompt=isMeaning?w.hanzi:w.english,nextLabel=lessonIdx+1<lessonQueue.length||!isMeaning?"Next →":"Finish lessons",btnCol=feedback?(feedback.correct?"#16a34a":"#dc2626"):ic;
-  app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(lessonIdx+1)+' / '+lessonQueue.length+' · Quiz '+(isMeaning?"1":"2")+'/2</span></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(lessonIdx/lessonQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div style="margin-bottom:8px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'">'+TYPE_LABELS[w.type]+'</span></div><div class="direction-label">'+(isMeaning?"🇨🇳 Hanzi → English":"🇬🇧 English → Hanzi")+'</div><div style="'+(isMeaning?"font-family:'Noto Serif SC',serif;font-size:90px;text-align:center;line-height:1;margin:1rem 0 .25rem":"font-size:32px;text-align:center;margin:1.5rem 0;font-weight:700")+'">'+prompt+'</div>'+(isMeaning&&settings.showPinyinOnReview?'<div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div>':"")+' <div class="prompt-label">'+(isMeaning?"What is the English meaning?":"Type the hanzi characters")+'</div><input id="answer-input" type="text" class="'+(ic===TYPE_COLORS.vocab?"vocab-mode":"")+' '+(feedback?(feedback.correct?"correct":"wrong"):"")+'" value="'+input.replace(/"/g,"&quot;")+'" placeholder="'+(isMeaning?"Type English meaning…":"Type hanzi…")+'" '+(feedback?"disabled":"")+'/>'+(feedback?'<div class="feedback '+(feedback.correct?"correct":"wrong")+'">'+(feedback.correct?"✓ Correct!":"✗ Wrong — correct answer: "+feedback.answer)+'</div>'+closeEnoughBtn(isMeaning?"meaning":"hanzi"):"")+' <button id="next-btn" class="check-btn" style="background:'+btnCol+'" onclick="submitLesson()">'+(feedback?nextLabel:"Check →")+'</button>'+infoBtnHTML(w.id)+'</div></div>';
+  app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(lessonIdx+1)+' / '+lessonQueue.length+' · Quiz '+(isMeaning?"1":"2")+'/2</span></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(lessonIdx/lessonQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div style="margin-bottom:8px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'">'+TYPE_LABELS[w.type]+'</span></div><div class="direction-label">'+(isMeaning?"🇨🇳 Hanzi → English":"🇬🇧 English → Hanzi")+'</div><div style="'+(isMeaning?"font-family:'Noto Serif SC',serif;font-size:90px;text-align:center;line-height:1;margin:1rem 0 .25rem":"font-size:32px;text-align:center;margin:1.5rem 0;font-weight:700")+'">'+prompt+'</div>'+(isMeaning&&settings.showPinyinOnReview?'<div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div>':"")+' <div class="prompt-label">'+(isMeaning?"What is the English meaning?":"Type the hanzi characters")+'</div><input id="answer-input" type="text" class="'+(ic===TYPE_COLORS.vocab?"vocab-mode":"")+' '+(feedback?(feedback.correct?"correct":"wrong"):"")+'" value="'+input.replace(/"/g,"&quot;")+'" placeholder="'+(isMeaning?"Type English meaning…":type==="reading"?"Type pinyin (e.g. ni3 hao3)…":"Type hanzi…")+'" '+(feedback?"disabled":"")+'/>'+(feedback?'<div class="feedback '+(feedback.correct?"correct":"wrong")+'">'+(feedback.correct?"✓ Correct!":"✗ Wrong — correct answer: "+feedback.answer)+'</div>'+closeEnoughBtn(isMeaning?"meaning":"hanzi"):"")+' <button id="next-btn" class="check-btn" style="background:'+btnCol+'" onclick="submitLesson()">'+(feedback?nextLabel:"Check →")+'</button>'+infoBtnHTML(w.id)+'</div></div>';
   if(!feedback){const inp=document.getElementById("answer-input");inp.focus();inp.addEventListener("input",e=>input=e.target.value);inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();submitLesson();}});if(infoPanelOpen)closeInfo();}else setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
 }
 
 function renderReview(app){
   const{word:w,type}=reviewQueue[reviewIdx],prompt=type==="meaning"?w.hanzi:w.english,ic=itemColor(w),tc=toneColor(w.tone||0),sc=STAGE_COLORS[SRS_STAGES[progress[w.id].stage]]||"#888",btnCol=feedback?(feedback.correct?"#16a34a":"#dc2626"):ic;
-  app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(reviewIdx+1)+' / '+reviewQueue.length+'</span><div style="display:flex;align-items:center;gap:6px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'" style="font-size:10px;padding:2px 7px">'+(isChar(w)?"Char":"Vocab")+'</span><span class="stage-badge" style="background:'+sc+'22;color:'+sc+'">'+SRS_STAGES[progress[w.id].stage]+'</span></div></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(reviewIdx/reviewQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div class="direction-label">'+(type==="meaning"?"🇨🇳 Hanzi → English":"🇬🇧 English → Hanzi")+'</div><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:.75rem 0 .25rem">'+(type==="meaning"?'<div style="font-family:\'Noto Serif SC\',serif;font-size:100px;line-height:1">'+prompt+'</div>'+spkBtn(w.hanzi):'<div style="font-size:32px;font-weight:700">'+prompt+'</div>')+'</div>'+(type==="meaning"&&settings.showPinyinOnReview?'<div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div>':"")+' <div class="prompt-label">'+(type==="meaning"?"What is the English meaning?":"Type the hanzi character(s)")+'</div><input id="answer-input" type="text" class="'+(ic===TYPE_COLORS.vocab?"vocab-mode":"")+' '+(feedback?(feedback.correct?"correct":"wrong"):"")+'" value="'+input.replace(/"/g,"&quot;")+'" placeholder="'+(type==="meaning"?"Type English meaning…":"Type hanzi…")+'" '+(feedback?"disabled":"")+'/>'+(feedback?'<div class="feedback '+(feedback.correct?"correct":"wrong")+'">'+(feedback.correct?"✓ Correct!":"✗ Wrong — correct answer: "+feedback.answer)+'</div>'+closeEnoughBtn(type):"")+' <button id="next-btn" class="check-btn" style="background:'+btnCol+'" onclick="submitReview()">'+(feedback?reviewIdx+1<reviewQueue.length?"Next →":"Finish reviews":"Check →")+'</button></div><div class="stats-bar"><span>✓ '+sessionCorrect+'</span><span>✗ '+(sessionTotal-sessionCorrect)+'</span><span>'+(sessionTotal>0?Math.round(sessionCorrect/sessionTotal*100):0)+'%</span></div>'+infoBtnHTML(w.id)+'</div>';
+  app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(reviewIdx+1)+' / '+reviewQueue.length+'</span><div style="display:flex;align-items:center;gap:6px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'" style="font-size:10px;padding:2px 7px">'+(isChar(w)?"Char":"Vocab")+'</span><span class="stage-badge" style="background:'+sc+'22;color:'+sc+'">'+SRS_STAGES[progress[w.id].stage]+'</span></div></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(reviewIdx/reviewQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div class="direction-label">'+(type==="meaning"?"🇨🇳 Hanzi → English":type==="reading"?"🇨🇳 Hanzi → Pinyin":"🇬🇧 English → Hanzi")+'</div><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:.75rem 0 .25rem">'+(type!=="hanzi"?'<div style="font-family:\'Noto Serif SC\',serif;font-size:100px;line-height:1">'+w.hanzi+'</div>'+spkBtn(w.hanzi):'<div style="font-size:32px;font-weight:700">'+prompt+'</div>')+'</div>'+(type==="meaning"&&settings.showPinyinOnReview?'<div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div>':"")+' <div class="prompt-label">'+(type==="meaning"?"What is the English meaning?":type==="reading"?"What is the pinyin reading?":"Type the hanzi character(s)")+'</div><input id="answer-input" type="text" class="'+(ic===TYPE_COLORS.vocab?"vocab-mode":"")+' '+(feedback?(feedback.correct?"correct":"wrong"):"")+'" value="'+input.replace(/"/g,"&quot;")+'" placeholder="'+(type==="meaning"?"Type English meaning…":type==="reading"?"Type pinyin (e.g. ni3 hao3)…":"Type hanzi…")+'" '+(feedback?"disabled":"")+'/>'+(feedback?'<div class="feedback '+(feedback.correct?"correct":"wrong")+'">'+(feedback.correct?"✓ Correct!":"✗ Wrong — correct answer: "+feedback.answer)+'</div>'+closeEnoughBtn(type):"")+' <button id="next-btn" class="check-btn" style="background:'+btnCol+'" onclick="submitReview()">'+(feedback?reviewIdx+1<reviewQueue.length?"Next →":"Finish reviews":"Check →")+'</button></div><div class="stats-bar"><span>✓ '+sessionCorrect+'</span><span>✗ '+(sessionTotal-sessionCorrect)+'</span><span>'+(sessionTotal>0?Math.round(sessionCorrect/sessionTotal*100):0)+'%</span></div>'+infoBtnHTML(w.id)+'</div>';
   if(!feedback){const inp=document.getElementById("answer-input");inp.focus();inp.addEventListener("input",e=>input=e.target.value);inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();submitReview();}});if(infoPanelOpen)closeInfo();}else setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
 }
 
