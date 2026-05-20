@@ -125,6 +125,12 @@
     .modal-close{width:100%;margin-top:1.1rem;background:#1a0f12;color:var(--text);border:1px solid var(--border2);font-weight:600}
     @keyframes shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-6px)}30%{transform:translateX(6px)}45%{transform:translateX(-5px)}60%{transform:translateX(5px)}75%{transform:translateX(-3px)}90%{transform:translateX(3px)}}
     .shake{animation:shake .4s ease}
+    .mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1.5rem}
+    .mc-btn{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;padding:18px 10px;border-radius:14px;border:2px solid var(--border2);background:var(--surface);color:var(--text);cursor:pointer;transition:all .15s;line-height:1.2;text-align:center}
+    .mc-btn:hover:not(:disabled){border-color:var(--border2);background:var(--surface2);transform:translateY(-2px)}
+    .mc-btn.correct{border-color:#16a34a;background:#14532d22;color:#4ade80}
+    .mc-btn.wrong{border-color:#dc2626;background:#7f1d1d22;color:#f87171}
+    .mc-btn.reveal{border-color:#16a34a;background:#14532d22;color:#4ade80}
     .near-miss-hint{margin:.5rem 0;padding:9px 14px;border-radius:8px;background:#78350f22;color:#fbbf24;border:1px solid #78350f44;font-size:13px;text-align:center}
     .components-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .component-chip{display:flex;align-items:center;gap:6px;background:#1a0f12;border:1px solid var(--border2);border-radius:8px;padding:5px 10px;font-size:13px;cursor:pointer;transition:border-color .12s}
@@ -259,8 +265,67 @@ function spkBtn(t,sz){sz=sz||"15px";var safe=t.replace(/"/g,"&quot;");return '<b
 
 function finishSession(){if(sessionStartTime){addTime(Date.now()-sessionStartTime);updateStreak();sessionStartTime=null;}}
 
+
+// ── MULTIPLE CHOICE ──────────────────────────────────────────────────────────
+let mcOptions=[],mcAnswered=false;
+
+function generateMCOptions(correctWord){
+  // Pick 3 wrong answers from same level or nearby levels, same type preferred
+  const pool=VOCAB.filter(w=>w.id!==correctWord.id&&w.type===correctWord.type&&progress[w.id]?.lessonDone);
+  // Fallback to any learned items if not enough same-type
+  const fallback=VOCAB.filter(w=>w.id!==correctWord.id&&progress[w.id]?.lessonDone);
+  let candidates=pool.length>=3?pool:fallback;
+  // Shuffle and pick 3
+  const shuffled=[...candidates].sort(()=>Math.random()-0.5).slice(0,3);
+  const opts=[correctWord,...shuffled].sort(()=>Math.random()-0.5);
+  return opts;
+}
+
+function submitMC(chosenId,correctId,fromLesson){
+  if(mcAnswered)return;
+  mcAnswered=true;
+  const correct=chosenId===correctId;
+  // Highlight buttons
+  document.querySelectorAll('.mc-btn').forEach(btn=>{
+    const id=parseInt(btn.dataset.id);
+    if(id===correctId)btn.classList.add('reveal');
+    else if(id===chosenId&&!correct)btn.classList.add('wrong');
+    btn.disabled=true;
+  });
+  // Show feedback banner
+  const fb=document.getElementById('mc-feedback');
+  if(fb){fb.className='feedback '+(correct?'correct':'wrong');fb.style.display='';fb.textContent=correct?'✓ Correct!':'✗ Wrong — look at the highlighted answer';}
+  // Show next button
+  const nextBtn=document.getElementById('next-btn');
+  if(nextBtn){nextBtn.style.display='';}
+  // Record in session
+  sessionTotal++;
+  if(correct)sessionCorrect++;
+  const w=fromLesson?lessonQueue[lessonIdx]:reviewQueue[reviewIdx].word;
+  recAcc(w.id,correct);
+  feedback={correct,answer:VOCAB.find(x=>x.id===correctId)?.hanzi};
+  // For reviews: track per-word score so advRev can update SRS
+  if(!fromLesson){
+    const type=reviewQueue[reviewIdx].type;
+    if(!window._sc[w.id])window._sc[w.id]={meaning:null,reading:null,hanzi:null};
+    if(correct)window._sc[w.id][type]=true;
+    else if(window._sc[w.id][type]!==true)window._sc[w.id][type]=false;
+  }
+  setTimeout(()=>document.getElementById('next-btn')?.focus(),50);
+}
+
+function renderMCOptions(opts,correctId,fromLesson){
+  const nextBtnColor=feedback?.correct?'#16a34a':'#dc2626';
+  return '<div class="mc-grid">'+opts.map(w=>{
+    let cls='mc-btn';
+    if(mcAnswered){if(w.id===correctId)cls+=' reveal';else if(feedback&&!feedback.correct&&w.id===opts.find(x=>x.id===correctId)?.id)cls+=' reveal';}
+    return '<button class="'+cls+'" data-id="'+w.id+'" onclick="submitMC('+w.id+','+correctId+','+fromLesson+')" '+(mcAnswered?'disabled':'')+'>'+w.hanzi+'</button>';
+  }).join('')+'</div>'
+  +'<div id="mc-feedback" class="feedback" style="'+(mcAnswered?'':'display:none')+'">'+(mcAnswered?(feedback?.correct?'✓ Correct!':'✗ Wrong — look at the green answer'):'')+'</div>'
+  +'<button id="next-btn" class="check-btn" style="margin-top:10px;background:'+nextBtnColor+';'+(mcAnswered?'':'display:none')+'" onclick="'+(fromLesson?'advLesson()':'advRev()')+'">Next →</button>';
+}
 function startLessons(){lessonQueue=availableLessons();if(!lessonQueue.length)return;lessonIdx=0;lessonPhase="learn";input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="lesson";render();}
-function startReviews(){const due=dueReviews();if(!due.length)return;window._stageShown=new Set();window._sc={};reviewQueue=[];due.forEach(w=>{reviewQueue.push({word:w,type:"meaning"});reviewQueue.push({word:w,type:"reading"});});for(let i=reviewQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[reviewQueue[i],reviewQueue[j]]=[reviewQueue[j],reviewQueue[i]];}reviewIdx=0;input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="review";render();}
+function startReviews(){const due=dueReviews();if(!due.length)return;window._stageShown=new Set();window._sc={};reviewQueue=[];due.forEach(w=>{reviewQueue.push({word:w,type:"meaning"});reviewQueue.push({word:w,type:"reading"});reviewQueue.push({word:w,type:"hanzi"});});for(let i=reviewQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[reviewQueue[i],reviewQueue[j]]=[reviewQueue[j],reviewQueue[i]];}reviewIdx=0;input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="review";render();}
 
 function advRev(){feedback=null;input="";nearMissActive=false;if(reviewIdx+1<reviewQueue.length){reviewIdx++;render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);}else{finishSession();const lv=checkLevelUp();save();sessionDone=true;showLevelUp=lv;render();}}
 function submitReview(){
@@ -294,16 +359,16 @@ function submitReview(){
   document.getElementById("near-miss-hint")?.remove();
 
   // Track per-word scores (reset each session via window._sc set in startReviews)
-  if(!window._sc[w.id])window._sc[w.id]={meaning:null,reading:null};
+  if(!window._sc[w.id])window._sc[w.id]={meaning:null,reading:null,hanzi:null};
   if(correct) window._sc[w.id][type]=true;
   else if(window._sc[w.id][type]!==true) window._sc[w.id][type]=false;
 
   // Update SRS only when both parts answered
   const pair=window._sc[w.id];
-  if(pair.meaning!==null&&pair.reading!==null){
+  if(pair.meaning!==null&&pair.reading!==null&&pair.hanzi!==null){
     const oldStage=cur.stage;
     let ns=cur.stage;
-    if(pair.meaning===true&&pair.reading===true) ns=Math.min(cur.stage+1,SRS_STAGES.length-1);
+    if(pair.meaning===true&&pair.reading===true&&pair.hanzi===true) ns=Math.min(cur.stage+1,SRS_STAGES.length-1);
     else ns=Math.max(cur.stage-1,0);
     progress[w.id]={...cur,stage:ns,nextReview:Date.now()+SRS_INTERVALS[ns]*3600000};
     save();
@@ -441,17 +506,38 @@ function renderLesson(app){
     app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(lessonIdx+1)+' / '+lessonQueue.length+'</span></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(lessonIdx/lessonQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div style="margin-bottom:10px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'">'+TYPE_LABELS[w.type]+'</span></div><div class="direction-label">Lesson — Learn</div><div style="display:flex;align-items:center;justify-content:center;gap:14px"><div class="big-hanzi">'+w.hanzi+'</div>'+spkBtn(w.hanzi)+'</div><div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div><div style="font-size:11px;color:'+tc+';font-weight:600;margin-bottom:.5rem">Tone '+(w.tone||0)+'</div><div style="font-size:22px;color:#9ca3af;margin:.5rem 0;font-weight:600">'+w.english+'</div><div style="margin-bottom:1rem"><span style="background:'+tc+'22;color:'+tc+';font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px">'+(w.etymology||"Compound")+'</span></div></div><div style="margin-bottom:1.25rem">'+(cached?.meaning?'<div class="card" style="margin-bottom:.6rem;text-align:left"><div class="card-label">Meaning</div><div style="font-size:13px;line-height:1.65;color:#c4b8ba">'+cached.meaning+'</div></div>':'<div class="card" style="margin-bottom:.6rem;color:var(--muted);font-size:13px"><span class="loading-dots">Loading</span></div>')+compsH+(cached?.context?'<div class="card" style="text-align:left"><div class="card-label" style="display:flex;align-items:center;justify-content:space-between"><span>Example</span>'+spkBtn(w.example_zh||w.hanzi,"13px")+'</div><div style="font-size:13px;line-height:1.75;color:#c4b8ba">'+cached.context+'</div></div>':'<div class="card" style="color:var(--muted);font-size:13px"><span class="loading-dots">Loading example</span></div>')+'</div><button id="next-btn" class="check-btn" style="background:'+ic+'" onclick="advLesson()">Got it →</button></div>';
     setTimeout(()=>document.getElementById("next-btn")?.focus(),50);return;
   }
-  const isMeaning=lessonPhase==="quiz-meaning",isReading=lessonPhase==="quiz-reading",isHanzi=lessonPhase==="quiz-hanzi";const prompt=isHanzi?w.english:w.hanzi;const nextLabel=lessonIdx+1<lessonQueue.length||!isHanzi?"Next →":"Finish lessons";const btnCol=feedback?(feedback.correct?"#16a34a":"#dc2626"):ic;
-  app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(lessonIdx+1)+' / '+lessonQueue.length+' · Quiz '+(isMeaning?"1":isReading?"2":"3")+'/3</span></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(lessonIdx/lessonQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div style="margin-bottom:8px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'">'+TYPE_LABELS[w.type]+'</span></div><div class="direction-label">'+(isMeaning?"🇨🇳 Hanzi → English":isReading?"🇨🇳 Hanzi → Pinyin":"🇬🇧 English → Hanzi")+'</div><div style="'+(isMeaning?"font-family:'Noto Serif SC',serif;font-size:90px;text-align:center;line-height:1;margin:1rem 0 .25rem":"font-size:32px;text-align:center;margin:1.5rem 0;font-weight:700")+'">'+prompt+'</div>'+(isMeaning&&settings.showPinyinOnReview?'<div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div>':"")+' <div class="prompt-label">'+(isMeaning?"What is the English meaning?":isReading?"Type the pinyin reading":"Type the hanzi characters")+'</div><input id="answer-input" type="text" class="'+(ic===TYPE_COLORS.vocab?"vocab-mode":"")+' '+(feedback?(feedback.correct?"correct":"wrong"):"")+'" value="'+input.replace(/"/g,"&quot;")+'" placeholder="'+(isMeaning?"Type English meaning…":isReading?"Type pinyin (e.g. ni3 hao3)…":"Type hanzi…")+'" '+(feedback?"disabled":"")+'/>'+(feedback?'<div class="feedback '+(feedback.correct?"correct":"wrong")+'">'+(feedback.correct?"✓ Correct!":"✗ Wrong — correct answer: "+feedback.answer)+'</div>'+closeEnoughBtn(isMeaning?"meaning":isReading?"reading":"hanzi"):"")+' <button id="next-btn" class="check-btn" style="background:'+btnCol+'" onclick="submitLesson()">'+(feedback?nextLabel:"Check →")+'</button>'+infoBtnHTML(w.id)+'</div></div>';
-  if(!feedback){const inp=document.getElementById("answer-input");inp.focus();inp.addEventListener("input",e=>input=e.target.value);inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();submitLesson();}});if(infoPanelOpen)closeInfo();}else setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
-}
+  const isMeaning=lessonPhase==="quiz-meaning",isReading=lessonPhase==="quiz-reading",isHanzi=lessonPhase==="quiz-hanzi";
 
+  if(isHanzi){
+    // Multiple choice for hanzi recognition
+    if(!feedback){mcOptions=generateMCOptions(w);mcAnswered=false;}
+    const header='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(lessonIdx+1)+' / '+lessonQueue.length+' · Quiz 3/3</span></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(lessonIdx/lessonQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div style="margin-bottom:8px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'">'+TYPE_LABELS[w.type]+'</span></div><div class="direction-label">🇬🇧 English → Hanzi</div><div style="font-size:26px;font-weight:700;margin:1.5rem 0;color:#9ca3af">'+w.english+'</div><div class="prompt-label">Which is the correct hanzi?</div>';
+    app.innerHTML=header+renderMCOptions(mcOptions,w.id,true)+'</div></div>';
+    return;
+  }
+
+  const prompt=isHanzi?w.english:w.hanzi;
+  const nextLabel=lessonIdx+1<lessonQueue.length?"Next →":"Finish lessons";
+  const btnCol=feedback?(feedback.correct?"#16a34a":"#dc2626"):ic;
+  app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(lessonIdx+1)+' / '+lessonQueue.length+' · Quiz '+(isMeaning?"1":"2")+'/3</span></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(lessonIdx/lessonQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div style="margin-bottom:8px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'">'+TYPE_LABELS[w.type]+'</span></div><div class="direction-label">'+(isMeaning?"🇨🇳 Hanzi → English":"🇨🇳 Hanzi → Pinyin")+'</div><div style="'+(isMeaning?"font-family:\'Noto Serif SC\',serif;font-size:90px;text-align:center;line-height:1;margin:1rem 0 .25rem":"font-family:\'Noto Serif SC\',serif;font-size:90px;text-align:center;line-height:1;margin:1rem 0 .25rem")+'">'+(isMeaning?w.hanzi:w.hanzi)+'</div>'+(isMeaning&&settings.showPinyinOnReview?'<div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div>':'')+' <div class="prompt-label">'+(isMeaning?"What is the English meaning?":"Type the pinyin reading")+'</div><input id="answer-input" type="text" lang="'+(isHanzi?"zh-Hans":"en")+'" class="'+(ic===TYPE_COLORS.vocab?"vocab-mode":"")+" "+(feedback?(feedback.correct?"correct":"wrong"):"")+'" value="'+input.replace(/"/g,"&quot;")+'" placeholder="'+(isMeaning?"Type English meaning…":"Type pinyin (e.g. ni3 hao3)…")+'" '+(feedback?"disabled":"")+'/>'+(feedback?'<div class="feedback '+(feedback.correct?"correct":"wrong")+'">'+(feedback.correct?"✓ Correct!":"✗ Wrong — correct answer: "+feedback.answer)+'</div>'+closeEnoughBtn(isMeaning?"meaning":"reading"):"")+' <button id="next-btn" class="check-btn" style="background:'+btnCol+'" onclick="submitLesson()">'+(feedback?nextLabel:"Check →")+'</button>'+infoBtnHTML(w.id)+'</div></div>';
+  if(!feedback){const inp=document.getElementById("answer-input");inp.focus();inp.lang=isHanzi?"zh-Hans":"en";inp.addEventListener("input",e=>input=e.target.value);inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();submitLesson();}});if(infoPanelOpen)closeInfo();}else setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
+}
 function renderReview(app){
-  const{word:w,type}=reviewQueue[reviewIdx],prompt=(type==="meaning"||type==="reading")?w.hanzi:w.english,ic=itemColor(w),tc=toneColor(w.tone||0),sc=STAGE_COLORS[SRS_STAGES[progress[w.id].stage]]||"#888",btnCol=feedback?(feedback.correct?"#16a34a":"#dc2626"):ic;
-  app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(reviewIdx+1)+' / '+reviewQueue.length+'</span><div style="display:flex;align-items:center;gap:6px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'" style="font-size:10px;padding:2px 7px">'+(isChar(w)?"Char":"Vocab")+'</span><span class="stage-badge" style="background:'+sc+'22;color:'+sc+'">'+SRS_STAGES[progress[w.id].stage]+'</span></div></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(reviewIdx/reviewQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div class="direction-label">'+(type==="meaning"?"🇨🇳 Hanzi → English":type==="reading"?"🇨🇳 Hanzi → Pinyin":"🇬🇧 English → Hanzi")+'</div><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:.75rem 0 .25rem">'+(type!=="hanzi"?'<div style="font-family:\'Noto Serif SC\',serif;font-size:100px;line-height:1">'+w.hanzi+'</div>'+spkBtn(w.hanzi):'<div style="font-size:32px;font-weight:700">'+prompt+'</div>')+'</div>'+(type==="meaning"&&settings.showPinyinOnReview?'<div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div>':"")+' <div class="prompt-label">'+(type==="meaning"?"What is the English meaning?":type==="reading"?"What is the pinyin reading?":"Type the hanzi character(s)")+'</div><input id="answer-input" type="text" class="'+(ic===TYPE_COLORS.vocab?"vocab-mode":"")+' '+(feedback?(feedback.correct?"correct":"wrong"):"")+'" value="'+input.replace(/"/g,"&quot;")+'" placeholder="'+(type==="meaning"?"Type English meaning…":type==="reading"?"Type pinyin (e.g. ni3 hao3)…":"Type hanzi…")+'" '+(feedback?"disabled":"")+'/>'+(feedback?'<div class="feedback '+(feedback.correct?"correct":"wrong")+'">'+(feedback.correct?"✓ Correct!":"✗ Wrong — correct answer: "+feedback.answer)+'</div>'+closeEnoughBtn(type):"")+' <button id="next-btn" class="check-btn" style="background:'+btnCol+'" onclick="submitReview()">'+(feedback?reviewIdx+1<reviewQueue.length?"Next →":"Finish reviews":"Check →")+'</button></div><div class="stats-bar"><span>✓ '+sessionCorrect+'</span><span>✗ '+(sessionTotal-sessionCorrect)+'</span><span>'+(sessionTotal>0?Math.round(sessionCorrect/sessionTotal*100):0)+'%</span></div>'+infoBtnHTML(w.id)+'</div>';
-  if(!feedback){const inp=document.getElementById("answer-input");inp.focus();inp.addEventListener("input",e=>input=e.target.value);inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();submitReview();}});if(infoPanelOpen)closeInfo();}else setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
-}
+  const{word:w,type}=reviewQueue[reviewIdx],ic=itemColor(w),tc=toneColor(w.tone||0),sc=STAGE_COLORS[SRS_STAGES[progress[w.id].stage]]||"#888",btnCol=feedback?(feedback.correct?"#16a34a":"#dc2626"):ic;
 
+  if(type==="hanzi"){
+    // Multiple choice for hanzi recognition
+    if(!feedback){mcOptions=generateMCOptions(w);mcAnswered=false;}
+    const prompt=w.english;
+    const header='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(reviewIdx+1)+' / '+reviewQueue.length+'</span><div style="display:flex;align-items:center;gap:6px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'" style="font-size:10px;padding:2px 7px">'+(isChar(w)?"Char":"Vocab")+'</span><span class="stage-badge" style="background:'+sc+'22;color:'+sc+'">'+SRS_STAGES[progress[w.id].stage]+'</span></div></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(reviewIdx/reviewQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div class="direction-label">🇬🇧 English → Hanzi</div><div style="font-size:26px;font-weight:700;margin:1.5rem 0;color:#9ca3af">'+prompt+'</div><div class="prompt-label">Which is the correct hanzi?</div>';
+    app.innerHTML=header+renderMCOptions(mcOptions,w.id,false)+'</div></div><div class="stats-bar"><span>✓ '+sessionCorrect+'</span><span>✗ '+(sessionTotal-sessionCorrect)+'</span><span>'+(sessionTotal>0?Math.round(sessionCorrect/sessionTotal*100):0)+'%</span></div></div>';
+    return;
+  }
+
+  const prompt=(type==="meaning"||type==="reading")?w.hanzi:w.english;
+  app.innerHTML='<div class="session-wrap"><div class="session-header"><button class="btn-back" onclick="screen=\'dashboard\';render()">← back</button><span style="font-size:13px;color:var(--muted)">'+(reviewIdx+1)+' / '+reviewQueue.length+'</span><div style="display:flex;align-items:center;gap:6px"><span class="'+(isChar(w)?"type-badge-char":"type-badge-vocab")+'" style="font-size:10px;padding:2px 7px">'+(isChar(w)?"Char":"Vocab")+'</span><span class="stage-badge" style="background:'+sc+'22;color:'+sc+'">'+SRS_STAGES[progress[w.id].stage]+'</span></div></div><div class="session-progress"><div class="session-progress-fill" style="width:'+Math.round(reviewIdx/reviewQueue.length*100)+'%;background:'+ic+'"></div></div><div style="text-align:center"><div class="direction-label">'+(type==="meaning"?"🇨🇳 Hanzi → English":type==="reading"?"🇨🇳 Hanzi → Pinyin":"🇬🇧 English → Hanzi")+'</div><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:.75rem 0 .25rem">'+(type!=="hanzi"?'<div style="font-family:\'Noto Serif SC\',serif;font-size:100px;line-height:1">'+w.hanzi+'</div>'+spkBtn(w.hanzi):'<div style="font-size:32px;font-weight:700">'+prompt+'</div>')+'</div>'+(type==="meaning"&&settings.showPinyinOnReview?'<div class="big-pinyin" style="color:'+tc+'">'+w.pinyin+'</div>':'')+' <div class="prompt-label">'+(type==="meaning"?"What is the English meaning?":type==="reading"?"What is the pinyin reading?":"Type the hanzi character(s)")+'</div><input id="answer-input" type="text" class="'+(ic===TYPE_COLORS.vocab?"vocab-mode":"")+" "+(feedback?(feedback.correct?"correct":"wrong"):"")+'" value="'+input.replace(/"/g,"&quot;")+'" placeholder="'+(type==="meaning"?"Type English meaning…":type==="reading"?"Type pinyin (e.g. ni3 hao3)…":"Type hanzi…")+'" '+(feedback?"disabled":"")+'/>'+(feedback?'<div class="feedback '+(feedback.correct?"correct":"wrong")+'">'+(feedback.correct?"✓ Correct!":"✗ Wrong — correct answer: "+feedback.answer)+'</div>'+closeEnoughBtn(type):"")+' <button id="next-btn" class="check-btn" style="background:'+btnCol+'" onclick="submitReview()">'+(feedback?reviewIdx+1<reviewQueue.length?"Next →":"Finish reviews":"Check →")+'</button></div><div class="stats-bar"><span>✓ '+sessionCorrect+'</span><span>✗ '+(sessionTotal-sessionCorrect)+'</span><span>'+(sessionTotal>0?Math.round(sessionCorrect/sessionTotal*100):0)+'%</span></div>'+infoBtnHTML(w.id)+'</div>';
+  if(!feedback){const inp=document.getElementById("answer-input");inp.focus();inp.lang=type==="hanzi"?"zh-Hans":"en";if(type==="hanzi"){inp.setAttribute("inputmode","text");}else{inp.removeAttribute("inputmode");}inp.addEventListener("input",e=>input=e.target.value);inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();submitReview();}});if(infoPanelOpen)closeInfo();}else setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
+}
 function renderSettings(app){
   app.innerHTML=navHTML("settings")+'<h2>Settings</h2><p class="sub">Customize your study experience</p><div class="card"><div class="card-label">Daily lesson limit</div><div style="display:flex;align-items:center;gap:12px"><input type="range" min="5" max="50" step="5" value="'+settings.lessonsPerDay+'" style="flex:1;accent-color:#c0392b" oninput="this.nextElementSibling.textContent=this.value;settings.lessonsPerDay=parseInt(this.value);saveSettings()"/><span style="font-size:20px;font-weight:500;min-width:36px;text-align:right">'+settings.lessonsPerDay+'</span></div></div><div class="card"><div class="card-label">Review order</div>'+[["shuffle","🔀 Shuffled"],["level","📶 By level"],["stage","⬆️ By stage"]].map(([v,l])=>'<label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-bottom:0.5px solid #1a0f12"><input type="radio" name="ro" value="'+v+'" '+(settings.reviewOrder===v?"checked":"")+' onchange="settings.reviewOrder=\''+v+'\';saveSettings()"/><span style="font-size:14px">'+l+'</span></label>').join("")+'</div><div class="card"><div class="card-label">Study options</div>'+[["autoPlay","Auto-play pronunciation","Plays audio on lesson cards"],["slowAudio","Slow audio","60% speed — good for tones"],["showPinyinOnReview","Show pinyin during reviews","Shows pinyin hint on hanzi → English"]].map(([k,t,d])=>'<label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--border)"><div><div style="font-size:14px">'+t+'</div><div style="font-size:12px;color:var(--muted);margin-top:2px">'+d+'</div></div><input type="checkbox" '+(settings[k]?"checked":"")+' style="width:18px;height:18px;accent-color:#c0392b;flex-shrink:0;margin-left:12px" onchange="settings.'+k+'=this.checked;saveSettings()"/></label>').join("")+'</div><div class="card"><div class="card-label">Progress</div><button class="btn-secondary" style="background:#140c0f;color:#f87171;border-color:#7f1d1d;margin-top:0" onclick="if(confirm(\'Reset ALL progress?\')){localStorage.clear();progress={};currentLevel=1;initProgress();screen=\'dashboard\';render()}">Reset all progress</button></div>';
 }
