@@ -970,7 +970,21 @@ function renderMCOptions(opts,correctId,fromLesson){
 function startLessons(){lessonQueue=availableLessons();if(!lessonQueue.length)return;lessonIdx=0;lessonPhase="learn";input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="lesson";render();}
 function startReviews(){const due=dueReviews();if(!due.length)return;window._stageShown=new Set();window._sc={};reviewQueue=[];due.forEach(w=>{reviewQueue.push({word:w,type:"meaning"});reviewQueue.push({word:w,type:"reading"});reviewQueue.push({word:w,type:"hanzi"});});for(let i=reviewQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[reviewQueue[i],reviewQueue[j]]=[reviewQueue[j],reviewQueue[i]];}reviewIdx=0;input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="review";render();}
 
-function advRev(){feedback=null;input="";nearMissActive=false;if(reviewIdx+1<reviewQueue.length){reviewIdx++;render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);}else{finishSession();const lv=checkLevelUp();save();sessionDone=true;showLevelUp=lv;render();}}
+function advRev(){
+  const wasWrong=feedback&&!feedback.correct;
+  feedback=null;input="";nearMissActive=false;mcAnswered=false;
+  if(wasWrong){
+    // Push this card to the end so they must redo it
+    reviewQueue.push(reviewQueue[reviewIdx]);
+  }
+  if(reviewIdx+1<reviewQueue.length){
+    reviewIdx++;
+    render();
+    setTimeout(()=>document.getElementById("answer-input")?.focus(),50);
+  }else{
+    finishSession();const lv=checkLevelUp();save();sessionDone=true;showLevelUp=lv;render();
+  }
+}
 function submitReview(){
   if(feedback){advRev();return;}
   const{word:w,type}=reviewQueue[reviewIdx];
@@ -1030,7 +1044,27 @@ function submitReview(){
   setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
 }
 
-function advLesson(){feedback=null;input="";nearMissActive=false;if(lessonPhase==="learn"){lessonPhase="quiz-meaning";render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);return;}if(lessonPhase==="quiz-meaning"){lessonPhase="quiz-reading";render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);return;}if(lessonPhase==="quiz-reading"){lessonPhase="quiz-hanzi";render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);return;}if(lessonIdx+1<lessonQueue.length){lessonIdx++;lessonPhase="learn";render();}else{lessonQueue.forEach(w=>{progress[w.id]={...progress[w.id],lessonDone:true,stage:0,nextReview:Date.now()+SRS_INTERVALS[0]*3600000};});const today=new Date().toDateString(),g=lessonsToday();localStorage.setItem("hanzi-lastday",today);localStorage.setItem("hanzi-lessonstoday",g+lessonQueue.length);finishSession();const lv=checkLevelUp();save();sessionDone=true;showLevelUp=lv;render();}}
+function advLesson(){
+  const wasWrong=feedback&&!feedback.correct;
+  feedback=null;input="";nearMissActive=false;mcAnswered=false;
+  // If wrong on a quiz phase, repeat the same phase
+  if(wasWrong&&lessonPhase!=="learn"){
+    render();
+    setTimeout(()=>document.getElementById("answer-input")?.focus(),50);
+    return;
+  }
+  if(lessonPhase==="learn"){lessonPhase="quiz-meaning";render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);return;}
+  if(lessonPhase==="quiz-meaning"){lessonPhase="quiz-reading";render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);return;}
+  if(lessonPhase==="quiz-reading"){lessonPhase="quiz-hanzi";render();setTimeout(()=>document.getElementById("answer-input")?.focus(),50);return;}
+  if(lessonIdx+1<lessonQueue.length){lessonIdx++;lessonPhase="learn";render();}
+  else{
+    lessonQueue.forEach(w=>{progress[w.id]={...progress[w.id],lessonDone:true,stage:0,nextReview:Date.now()+SRS_INTERVALS[0]*3600000};});
+    const today=new Date().toDateString(),g=lessonsToday();
+    localStorage.setItem("hanzi-lastday",today);
+    localStorage.setItem("hanzi-lessonstoday",g+lessonQueue.length);
+    finishSession();const lv=checkLevelUp();save();sessionDone=true;showLevelUp=lv;render();
+  }
+}
 function submitLesson(){if(feedback){advLesson();return;}const w=lessonQueue[lessonIdx],isMeaning=lessonPhase==="quiz-meaning",isReading=lessonPhase==="quiz-reading";let exp,ok;if(isMeaning){exp=w.english;ok=checkAnswer(input,exp,w.id,"meaning");}else if(isReading){exp=w.pinyin;ok=checkPinyin(input,exp);}else{exp=w.hanzi;ok=checkAnswer(input,exp,w.id,"hanzi");}feedback={correct:ok,answer:exp};sessionTotal++;if(ok)sessionCorrect++;render();setTimeout(()=>document.getElementById("next-btn")?.focus(),50);}
 
 function markClose(){feedback={correct:true,answer:feedback.answer,closeEnough:true};sessionCorrect++;render();setTimeout(()=>document.getElementById("next-btn")?.focus(),50);}
