@@ -953,12 +953,9 @@ function submitMC(chosenId,correctId,fromLesson){
   const w=fromLesson?lessonQueue[lessonIdx]:reviewQueue[reviewIdx].word;
   recAcc(w.id,correct);
   feedback={correct,answer:VOCAB.find(x=>x.id===correctId)?.hanzi};
-  // For reviews: track per-word score so advRev can update SRS
+  // For reviews: record score and apply SRS update if this completed the word
   if(!fromLesson){
-    const type=reviewQueue[reviewIdx].type;
-    if(!window._sc[w.id])window._sc[w.id]={meaning:null,reading:null,hanzi:null};
-    if(correct)window._sc[w.id][type]=true;
-    else if(window._sc[w.id][type]!==true)window._sc[w.id][type]=false;
+    recordReviewScore(w,reviewQueue[reviewIdx].type,correct);
   }
   setTimeout(()=>document.getElementById('next-btn')?.focus(),50);
 }
@@ -975,6 +972,33 @@ function renderMCOptions(opts,correctId,fromLesson){
 }
 function startLessons(){lessonQueue=availableLessons();if(!lessonQueue.length)return;lessonIdx=0;lessonPhase="learn";input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="lesson";render();}
 function startReviews(){const due=dueReviews();if(!due.length)return;window._stageShown=new Set();window._sc={};reviewQueue=[];due.forEach(w=>{reviewQueue.push({word:w,type:"meaning"});reviewQueue.push({word:w,type:"reading"});reviewQueue.push({word:w,type:"hanzi"});});for(let i=reviewQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[reviewQueue[i],reviewQueue[j]]=[reviewQueue[j],reviewQueue[i]];}reviewIdx=0;input="";feedback=null;sessionCorrect=0;sessionTotal=0;sessionDone=false;showLevelUp=false;sessionStartTime=Date.now();screen="review";render();}
+
+
+// Record a review answer (first answer per card type is what counts for SRS)
+// and apply the SRS stage update exactly once, when all three card types are answered.
+function recordReviewScore(w,type,correct){
+  if(!window._sc[w.id])window._sc[w.id]={meaning:null,reading:null,hanzi:null,applied:false};
+  const s=window._sc[w.id];
+  if(s[type]===null)s[type]=correct; // sticky: redo after a wrong answer doesn't erase the miss
+  applySRSIfComplete(w);
+}
+function applySRSIfComplete(w){
+  const s=window._sc[w.id];
+  if(!s||s.applied||s.meaning===null||s.reading===null||s.hanzi===null)return;
+  s.applied=true; // one-shot guard: never re-apply for repeated (redo) cards
+  const cur=progress[w.id],oldStage=cur.stage;
+  const ns=(s.meaning&&s.reading&&s.hanzi)?Math.min(cur.stage+1,SRS_STAGES.length-1):Math.max(cur.stage-1,0);
+  const iv=SRS_INTERVALS[ns];
+  // Burned interval is Infinity; JSON.stringify would turn it into null and make the item permanently due.
+  const next=isFinite(iv)?Date.now()+iv*3600000:8640000000000000; // max valid JS date
+  progress[w.id]={...cur,stage:ns,nextReview:next};
+  save();
+  if(ns>oldStage){
+    if(!window._stageShown)window._stageShown=new Set();
+    const k=w.id+"-"+ns;
+    if(!window._stageShown.has(k)){window._stageShown.add(k);setTimeout(()=>showStagePopup(oldStage,ns,w.type),400);}
+  }
+}
 
 function advRev(){
   const wasWrong=feedback&&!feedback.correct;
@@ -1021,26 +1045,8 @@ function submitReview(){
   nearMissActive=false;
   document.getElementById("near-miss-hint")?.remove();
 
-  // Track per-word scores (reset each session via window._sc set in startReviews)
-  if(!window._sc[w.id])window._sc[w.id]={meaning:null,reading:null,hanzi:null};
-  if(correct) window._sc[w.id][type]=true;
-  else if(window._sc[w.id][type]!==true) window._sc[w.id][type]=false;
-
-  // Update SRS only when both parts answered
-  const pair=window._sc[w.id];
-  if(pair.meaning!==null&&pair.reading!==null&&pair.hanzi!==null){
-    const oldStage=cur.stage;
-    let ns=cur.stage;
-    if(pair.meaning===true&&pair.reading===true&&pair.hanzi===true) ns=Math.min(cur.stage+1,SRS_STAGES.length-1);
-    else ns=Math.max(cur.stage-1,0);
-    progress[w.id]={...cur,stage:ns,nextReview:Date.now()+SRS_INTERVALS[ns]*3600000};
-    save();
-    if(ns>oldStage){
-      if(!window._stageShown)window._stageShown=new Set();
-      const k=w.id+"-"+ns;
-      if(!window._stageShown.has(k)){window._stageShown.add(k);setTimeout(()=>showStagePopup(oldStage,ns,w.type),400);}
-    }
-  }
+  // Record score; SRS stage updates once when all three card types are answered
+  recordReviewScore(w,type,correct);
 
   recAcc(w.id,correct);
   feedback={correct,answer:expected};
