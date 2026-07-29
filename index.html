@@ -824,7 +824,7 @@ function getComponentWords(w){if(!w.components)return[];return w.components.map(
 function initProgress(){VOCAB.forEach(w=>{if(!progress[w.id])progress[w.id]={stage:0,nextReview:Date.now(),lessonDone:false};});}
 
 // Level assignment: chars 1-40 = level 1, 41-80 = level 2; vocab 101-140 = level 1, 141-180 = level 2, etc.
-function itemLevel(w){return isChar(w)?Math.ceil(w.id/40):Math.ceil((w.id-100)/40);}
+function itemLevel(w){return isChar(w)?Math.ceil(w.id/40):Math.ceil((w.id-10100)/40);}
 function allItemsForLevel(lvl){return VOCAB.filter(w=>itemLevel(w)===lvl);}
 function guruCount(lvl){return allItemsForLevel(lvl).filter(w=>progress[w.id]?.lessonDone&&progress[w.id]?.stage>=GURU_STAGE).length;}
 function levelProgress(lvl){const w=allItemsForLevel(lvl);return w.length?guruCount(lvl)/w.length:0;}
