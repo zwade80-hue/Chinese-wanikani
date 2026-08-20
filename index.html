@@ -830,7 +830,7 @@ function itemLevel(w){return w.level!=null?w.level:(isChar(w)?Math.ceil(w.id/40)
 function allItemsForLevel(lvl){return VOCAB.filter(w=>itemLevel(w)===lvl);}
 function guruCount(lvl){return allItemsForLevel(lvl).filter(w=>progress[w.id]?.lessonDone&&progress[w.id]?.stage>=GURU_STAGE).length;}
 function levelProgress(lvl){const w=allItemsForLevel(lvl);return w.length?guruCount(lvl)/w.length:0;}
-function checkLevelUp(){if(currentLevel>=60)return false;if(levelProgress(currentLevel)>=0.9){currentLevel++;save();return true;}return false;}
+function checkLevelUp(){if(currentLevel>=60)return false;if(levelProgress(currentLevel)>=0.75){currentLevel++;save();return true;}return false;}
 function lessonsToday(){const today=new Date().toDateString(),last=localStorage.getItem("hanzi-lastday");return last===today?parseInt(localStorage.getItem("hanzi-lessonstoday")||"0"):0;}
 function availableLessons(){
   const rem=settings.lessonsPerDay-lessonsToday();if(rem<=0)return[];
