@@ -807,6 +807,34 @@ let infoPanelOpen=false,infoPanelTab="meaning",infoPanelWord=null,infoPanelCache
 let pickerSelected=new Set(),browseSearch="";
 
 function save(){localStorage.setItem("hanzi-progress",JSON.stringify(progress));localStorage.setItem("hanzi-level",currentLevel);}
+function exportProgress(){
+  const data={version:1,exportedAt:new Date().toISOString(),progress:progress,level:currentLevel,settings:settings};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="hanzi-backup-"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function importProgress(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!data||typeof data!=="object"||!data.progress){alert("That doesn't look like a valid backup file.");return;}
+      if(!confirm("Import this backup? It will replace your current progress.")){return;}
+      progress=data.progress;
+      currentLevel=data.level||1;
+      if(data.settings)settings={...settings,...data.settings};
+      save();saveSettings();
+      initProgress();checkLevelUp();screen="dashboard";render();
+      alert("Progress imported successfully.");
+    }catch(err){alert("Couldn't read that file — it may be corrupted.");}
+  };
+  reader.readAsText(file);
+}
 function load(){loadSettings();const p=localStorage.getItem("hanzi-progress");if(p)progress=JSON.parse(p);currentLevel=parseInt(localStorage.getItem("hanzi-level")||"1");
   // Heal timestamps that serialized as null (old Infinity/Burned bug)
   Object.values(progress).forEach(pr=>{if(pr&&(pr.nextReview===null||pr.nextReview===undefined||!isFinite(pr.nextReview))){pr.nextReview=pr.stage>=SRS_STAGES.length-1?8640000000000000:Date.now();}});}
@@ -1234,7 +1262,7 @@ function renderReview(app){
   if(!feedback){const inp=document.getElementById("answer-input");inp.focus();inp.lang=type==="hanzi"?"zh-Hans":"en";if(type==="hanzi"){inp.setAttribute("inputmode","text");}else{inp.removeAttribute("inputmode");}inp.addEventListener("input",e=>input=e.target.value);inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();submitReview();}});if(infoPanelOpen)closeInfo();}else setTimeout(()=>document.getElementById("next-btn")?.focus(),50);
 }
 function renderSettings(app){
-  app.innerHTML=navHTML("settings")+'<h2>Settings</h2><p class="sub">Customize your study experience</p><div class="card"><div class="card-label">Daily lesson limit</div><div style="display:flex;align-items:center;gap:12px"><input type="range" min="5" max="50" step="5" value="'+settings.lessonsPerDay+'" style="flex:1;accent-color:var(--red)" oninput="this.nextElementSibling.textContent=this.value;settings.lessonsPerDay=parseInt(this.value);saveSettings()"/><span style="font-size:20px;font-weight:500;min-width:36px;text-align:right">'+settings.lessonsPerDay+'</span></div></div><div class="card"><div class="card-label">Review order</div>'+[["shuffle","🔀 Shuffled"],["level","📶 By level"],["stage","⬆️ By stage"]].map(([v,l])=>'<label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-bottom:0.5px solid var(--surface2)"><input type="radio" name="ro" value="'+v+'" '+(settings.reviewOrder===v?"checked":"")+' onchange="settings.reviewOrder=\''+v+'\';saveSettings()"/><span style="font-size:14px">'+l+'</span></label>').join("")+'</div><div class="card"><div class="card-label">Study options</div>'+[["autoPlay","Auto-play pronunciation","Plays audio on lesson cards"],["slowAudio","Slow audio","60% speed — good for tones"],["showPinyinOnReview","Show pinyin during reviews","Shows pinyin hint on hanzi → English"]].map(([k,t,d])=>'<label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--border)"><div><div style="font-size:14px">'+t+'</div><div style="font-size:12px;color:var(--muted);margin-top:2px">'+d+'</div></div><input type="checkbox" '+(settings[k]?"checked":"")+' style="width:18px;height:18px;accent-color:var(--red);flex-shrink:0;margin-left:12px" onchange="settings.'+k+'=this.checked;saveSettings()"/></label>').join("")+'</div><div class="card"><div class="card-label">Progress</div><button class="btn-secondary" style="background:var(--surface);color:var(--red);border-color:#7f1d1d;margin-top:0" onclick="if(confirm(\'Reset ALL progress?\')){localStorage.clear();progress={};currentLevel=1;initProgress();screen=\'dashboard\';render()}">Reset all progress</button></div>';
+  app.innerHTML=navHTML("settings")+'<h2>Settings</h2><p class="sub">Customize your study experience</p><div class="card"><div class="card-label">Daily lesson limit</div><div style="display:flex;align-items:center;gap:12px"><input type="range" min="5" max="50" step="5" value="'+settings.lessonsPerDay+'" style="flex:1;accent-color:var(--red)" oninput="this.nextElementSibling.textContent=this.value;settings.lessonsPerDay=parseInt(this.value);saveSettings()"/><span style="font-size:20px;font-weight:500;min-width:36px;text-align:right">'+settings.lessonsPerDay+'</span></div></div><div class="card"><div class="card-label">Review order</div>'+[["shuffle","🔀 Shuffled"],["level","📶 By level"],["stage","⬆️ By stage"]].map(([v,l])=>'<label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-bottom:0.5px solid var(--surface2)"><input type="radio" name="ro" value="'+v+'" '+(settings.reviewOrder===v?"checked":"")+' onchange="settings.reviewOrder=\''+v+'\';saveSettings()"/><span style="font-size:14px">'+l+'</span></label>').join("")+'</div><div class="card"><div class="card-label">Study options</div>'+[["autoPlay","Auto-play pronunciation","Plays audio on lesson cards"],["slowAudio","Slow audio","60% speed — good for tones"],["showPinyinOnReview","Show pinyin during reviews","Shows pinyin hint on hanzi → English"]].map(([k,t,d])=>'<label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:6px 0;border-bottom:1px solid var(--border)"><div><div style="font-size:14px">'+t+'</div><div style="font-size:12px;color:var(--muted);margin-top:2px">'+d+'</div></div><input type="checkbox" '+(settings[k]?"checked":"")+' style="width:18px;height:18px;accent-color:var(--red);flex-shrink:0;margin-left:12px" onchange="settings.'+k+'=this.checked;saveSettings()"/></label>').join("")+'</div><div class="card"><div class="card-label">Progress</div><div style="font-size:12px;color:var(--muted);margin-bottom:10px">Back up your progress to a file, or restore from one. Do this regularly — clearing your browser data erases progress otherwise.</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><button class="btn-secondary" style="margin-top:0;flex:1;min-width:130px" onclick="exportProgress()">⬇️ Export backup</button><button class="btn-secondary" style="margin-top:0;flex:1;min-width:130px" onclick="document.getElementById(\'importFile\').click()">⬆️ Import backup</button><input type="file" id="importFile" accept="application/json,.json" style="display:none" onchange="importProgress(this.files[0]);this.value=\'\'"/></div><button class="btn-secondary" style="background:var(--surface);color:var(--red);border-color:#7f1d1d;margin-top:0" onclick="if(confirm(\'Reset ALL progress?\')){localStorage.clear();progress={};currentLevel=1;initProgress();screen=\'dashboard\';render()}">Reset all progress</button></div>';
 }
 
 function openPicker(){pickerSelected=new Set();screen="picker";render();}
